@@ -1,5 +1,64 @@
 {
   "users": [],
-  "books": [],
-  "store": []
+  "books": [
+    {
+      "storeId": 1,
+      "title": "QUalquer coisa",
+      "Author": "aaaaaa",
+      "genre": "action",
+      "resume": "lorem ipsum",
+      "image": "...",
+      "stock": 3,
+      "id": 1
+    },
+    {
+      "storeId": 1,
+      "title": "QUalquer coisa",
+      "Author": "aaaaaa",
+      "genre": "action",
+      "resume": "lorem ipsum",
+      "image": "...",
+      "stock": 8,
+      "id": 2
+    },
+    {
+      "storeId": 1,
+      "title": "QUalquer coisa",
+      "Author": "aaaaaa",
+      "genre": "action",
+      "resume": "lorem ipsum",
+      "image": "...",
+      "stock": 15,
+      "id": 3
+    }
+  ],
+  "store": [
+    {
+      "email": "store@store.com",
+      "password": "12345",
+      "name": "John Store",
+      "address": "Rua blablabla, 48",
+      "phone": "(51) 123456789",
+      "plan": 1,
+      "id": 1
+    },
+    {
+      "email": "store@store.com",
+      "password": "12345",
+      "name": "John Store",
+      "address": "Rua blablabla, 48",
+      "phone": "(51) 123456789",
+      "plan": 1,
+      "id": 2
+    },
+    {
+      "email": "store@store.com",
+      "password": "12345",
+      "name": "John Store",
+      "address": "Rua blablabla, 48",
+      "phone": "(51) 123456789",
+      "plan": 1,
+      "id": 3
+    }
+  ]
 }
