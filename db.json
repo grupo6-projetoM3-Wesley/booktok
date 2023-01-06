@@ -1,5 +1,15 @@
 {
-  "users": [],
+  "users": [
+    {
+      "email": "store@s.com",
+      "password": "$2a$10$ZrS3TenEZsAXpEqbLzjK8.wch5MOfIIcKxd5um4nzkzPr06NNrz0O",
+      "name": "John Store",
+      "address": "Rua blablabla, 48",
+      "phone": "(51) 123456789",
+      "plan": 1,
+      "id": 1
+    }
+  ],
   "books": [
     {
       "storeId": 1,
@@ -7,61 +17,30 @@
       "author": "aaaaaa",
       "genre": "action",
       "resume": "lorem ipsum",
-      "image": "...",
+      "image": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg",
       "stock": 3,
-      "id": 1,
-      "image": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg"
-    },
-    {
-      "storeId": 1,
-      "title": "QUalquer coisa",
-      "author": "aaaaaa",
-      "genre": "action",
-      "resume": "lorem ipsum",
-      "image": "...",
-      "stock": 8,
-      "id": 2,
-      "image": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg"
-    },
-    {
-      "storeId": 1,
-      "title": "QUalquer coisa",
-      "author": "aaaaaa",
-      "genre": "action",
-      "resume": "lorem ipsum",
-      "image": "...",
-      "stock": 15,
-      "id": 3,
-      "image": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg"
-    }
-  ],
-  "store": [
-    {
-      "email": "store@store.com",
-      "password": "12345",
-      "name": "John Store",
-      "address": "Rua blablabla, 48",
-      "phone": "(51) 123456789",
-      "plan": 1,
       "id": 1
     },
     {
-      "email": "store@store.com",
-      "password": "12345",
-      "name": "John Store",
-      "address": "Rua blablabla, 48",
-      "phone": "(51) 123456789",
-      "plan": 1,
+      "storeId": 1,
+      "title": "QUalquer coisa",
+      "author": "aaaaaa",
+      "genre": "action",
+      "resume": "lorem ipsum",
+      "image": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg",
+      "stock": 8,
       "id": 2
     },
     {
-      "email": "store@store.com",
-      "password": "12345",
-      "name": "John Store",
-      "address": "Rua blablabla, 48",
-      "phone": "(51) 123456789",
-      "plan": 1,
+      "storeId": 1,
+      "title": "QUalquer coisa",
+      "author": "aaaaaa",
+      "genre": "action",
+      "resume": "lorem ipsum",
+      "image": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg",
+      "stock": 15,
       "id": 3
     }
-  ]
+  ],
+  "store": []
 }

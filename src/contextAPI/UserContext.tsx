@@ -1,107 +1,126 @@
-import { createContext, ReactNode, useEffect } from 'react'; 
+import { createContext, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { api } from '../services/api';
 
-
-interface iUserProviderProps{
-    children: ReactNode,
-}  
-
-export interface iDataLogin{
-    email: string ,
-    password: string
+interface iUserProviderProps {
+  children: ReactNode;
 }
 
-export interface iDataRegisterUser{
-    email: string,
-    password: string,
-    name: string,
-    passwordConfirm: string
-   
-    
+export interface iDataLogin {
+  email: string;
+  password: string;
 }
 
-interface iUser{
-
-    accessToken: string,
-    user:{
-        id: string,
-        name: string,
-        email: string
-    }
+export interface iDataRegisterUser {
+  email: string;
+  password: string;
+  name: string;
+  passwordConfirm: string;
+  address: string;
+  phone: string;
 }
 
-interface iUserContextTypes{
-
-   
-    setUser: React.Dispatch<React.SetStateAction<iUser>>;
-    user: iUser;
-
-    onSubmitFunctionLogin: (data:iDataLogin)=> void;
-    onSubmitFunctionRegister: (data:iDataRegisterUser)=> void;
-
+export interface iDataRegisterStore {
+  email: string;
+  password: string;
+  name: string;
+  passwordConfirm: string;
+  address: string;
+  phone: string;
+  plan?: number;
 }
 
+interface iUser {
+  accessToken: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
 
+interface iUserContextTypes {
+  setUser: React.Dispatch<React.SetStateAction<iUser>>;
+  user: iUser;
 
-export const UserContext = createContext({} as iUserContextTypes );
+  onSubmitFunctionLogin: (data: iDataLogin) => void;
+  onSubmitFunctionRegister: (data: iDataRegisterUser) => void;
+  onSubmitFunctionRegisterStore: (data: iDataRegisterUser) => void;
+}
 
-export function UserProvider({children}: iUserProviderProps){
+export const UserContext = createContext({} as iUserContextTypes);
 
-    const [user, setUser] = useState({} as iUser)
+export const UserProvider = ({ children }: iUserProviderProps) => {
+  const [user, setUser] = useState({} as iUser);
 
-    const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-    function onSubmitFunctionLogin(data: iDataLogin){
-        
-        api
-        .post('/login', data)
-        .then((response) => {
-            
-            console.log(response)
+  const onSubmitFunctionLogin = (data: iDataLogin) => {
+    api
+      .post('/login', data)
+      .then((response) => {
+        console.log(response);
 
-            setUser(response.data.user);
-            localStorage.setItem('tokenUser' ,response.data.accessToken);
-            toast.success('login com sucesso');
-            setTimeout(()=>{
-                navigate('/dashboard');
-            },500)
-            
-        })
-        .catch((err) => {
-            console.log(err)
-            toast.error('email ou senha incorreta');
-        })
-        
-    };  
+        setUser(response.data.user);
+        localStorage.setItem('tokenUser', response.data.accessToken);
+        toast.success('login com sucesso');
+        // setTimeout(()=>{
+        //     navigate('/login');
+        // },500)
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error('email ou senha incorreta');
+      });
+  };
 
-    function onSubmitFunctionRegister(data: iDataRegisterUser){
-        
-        api
-        .post('/users', data)
-        .then((response) => {
-            
-            console.log(response)
-            
-            toast.success('Cadastro realizado com sucesso');
-            setTimeout(()=>{
-                navigate('/');
-            },500)
-        })
-        .catch((err) => {
-           
-            toast.error('Cadastro não permitido');
-            console.log(err)
-        })
-    }; 
+  const onSubmitFunctionRegister = (data: iDataRegisterUser) => {
+    api
+      .post('/users', data)
+      .then((response) => {
+        console.log(response);
 
-    return(
+        toast.success('Cadastro realizado com sucesso');
+        setTimeout(() => {
+          navigate('/login');
+        }, 500);
+      })
+      .catch((err) => {
+        toast.error('Cadastro não permitido');
+        console.log(err);
+      });
+  };
 
-        <UserContext.Provider value={{onSubmitFunctionLogin, onSubmitFunctionRegister, setUser, user }}>
-            {children}
-        </UserContext.Provider>
+  const onSubmitFunctionRegisterStore = (data: iDataRegisterStore) => {
+    api
+      .post('/users', data)
+      .then((response) => {
+        console.log(response);
 
-    )
+        toast.success('Cadastro realizado com sucesso');
+        setTimeout(() => {
+          navigate('/login');
+        }, 500);
+      })
+      .catch((err) => {
+        toast.error('Cadastro não permitido');
+        console.log(err);
+      });
+  };
 
+  return (
+    <UserContext.Provider
+      value={{
+        onSubmitFunctionLogin,
+        onSubmitFunctionRegister,
+        onSubmitFunctionRegisterStore,
+        setUser,
+        user,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };
