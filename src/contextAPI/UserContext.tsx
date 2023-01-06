@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect } from 'react'; 
+import { createContext, ReactNode } from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -19,9 +19,21 @@ export interface iDataRegisterUser{
     email: string,
     password: string,
     name: string,
-    passwordConfirm: string
+    passwordConfirm: string,
+    address: string,
+    phone: string,
    
     
+}
+
+export interface iDataRegisterStore{
+    email: string,
+    password: string,
+    name: string,
+    passwordConfirm: string
+    address: string,
+    phone: string,
+    plan?: number
 }
 
 interface iUser{
@@ -42,6 +54,7 @@ interface iUserContextTypes{
 
     onSubmitFunctionLogin: (data:iDataLogin)=> void;
     onSubmitFunctionRegister: (data:iDataRegisterUser)=> void;
+    onSubmitFunctionRegisterStore: (data:iDataRegisterUser)=> void;
 
 }
 
@@ -67,7 +80,7 @@ export const UserProvider = ({children}: iUserProviderProps) => {
             localStorage.setItem('tokenUser' ,response.data.accessToken);
             toast.success('login com sucesso');
             // setTimeout(()=>{
-            //     navigate('/);
+            //     navigate('/login');
             // },500)
             
         })
@@ -87,9 +100,29 @@ export const UserProvider = ({children}: iUserProviderProps) => {
             console.log(response)
             
             toast.success('Cadastro realizado com sucesso');
-            // setTimeout(()=>{
-            //     navigate('/');
-            // },500)
+            setTimeout(()=>{
+                navigate('/login');
+            },500)
+        })
+        .catch((err) => {
+           
+            toast.error('Cadastro não permitido');
+            console.log(err)
+        })
+    }; 
+
+    const onSubmitFunctionRegisterStore = (data: iDataRegisterStore) =>{
+        
+        api
+        .post('/users', data)
+        .then((response) => {
+            
+            console.log(response)
+            
+            toast.success('Cadastro realizado com sucesso');
+            setTimeout(()=>{
+                navigate('/login');
+            },500)
         })
         .catch((err) => {
            
@@ -100,7 +133,7 @@ export const UserProvider = ({children}: iUserProviderProps) => {
 
     return(
 
-        <UserContext.Provider value={{onSubmitFunctionLogin, onSubmitFunctionRegister, setUser, user }}>
+        <UserContext.Provider value={{onSubmitFunctionLogin, onSubmitFunctionRegister, onSubmitFunctionRegisterStore, setUser, user }}>
             {children}
         </UserContext.Provider>
 
