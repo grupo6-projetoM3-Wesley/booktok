@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StyledStorePage = styled.div`
   width: 100%;
@@ -123,6 +123,7 @@ export const StyledCard = styled.li`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
   border-radius: 4px;
+  flex-wrap: wrap;
 
   img {
     width: 150px;
