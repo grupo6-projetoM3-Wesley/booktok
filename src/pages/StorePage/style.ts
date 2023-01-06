@@ -22,7 +22,14 @@ export const StyledStorePage = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
+    align-items: center;
   }
+
+  .header-div > div {
+    display: flex;
+    gap: 89px;
+  }
+
   .header-div > img {
     width: 396px;
     height: 98px;
@@ -76,6 +83,16 @@ export const StyledStorePage = styled.div`
     flex-direction: column;
     align-items: center;
     background-color: #eeeeee;
+    margin-top: 150px;
+
+    input {
+      width: 265px;
+      height: 36px;
+      background: #ffffff;
+      border: 1px solid #b48cf2;
+      border-radius: 16px;
+      padding: 9px 22px;
+    }
   }
 
   ul {

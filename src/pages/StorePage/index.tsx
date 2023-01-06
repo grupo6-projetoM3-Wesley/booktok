@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../assets/img/booktok.png";
 import { StyledCard, StyledStorePage } from "./style";
 
@@ -14,7 +14,6 @@ export const StorePage = () => {
     plan: 1,
     id: 1,
   };
-
   const books = [
     {
       storeId: 1,
@@ -57,6 +56,17 @@ export const StorePage = () => {
     },
   ];
 
+  const [filteredBooks, setFilteredBooks] = useState(books);
+  const [filter, setFilter] = useState(" " || undefined);
+
+  const bookFilter = (event: string) => {
+    if (event === "") {
+      setFilteredBooks(books);
+    } else {
+      setFilteredBooks(books.filter((element) => element.title === event));
+    }
+  };
+
   return (
     <StyledStorePage>
       <header>
@@ -80,7 +90,7 @@ export const StorePage = () => {
             Email: <span>{store.email}</span>
           </p>
           <p>
-            Quantidade de livros catalogados: <span>x</span>
+            Quantidade de livros catalogados: <span>{books.length}</span>
           </p>
           <div>
             <button>Atualizar informações</button>
@@ -92,32 +102,39 @@ export const StorePage = () => {
         <div className="new-book">
           <button>Cadastrar novo livro</button>
           <div className="filter-div">
-            <input placeholder="Pesquisar livro"></input>
-            <button>Buscar</button>
+            <input
+              placeholder="Pesquisar livro"
+              onChange={(event) => setFilter(event.target.value)}
+            ></input>
+            <button onClick={() => bookFilter(filter)}>Buscar</button>
           </div>
         </div>
         <ul>
-          {books.map((element) => {
-            return (
-              <StyledCard key={element.id}>
-                <img src={element.avatar} alt="" />
-                <div>
-                  <p>
-                    Título: <span>{element.title}</span>
-                  </p>
-                  <p>
-                    Autor: <span>{element.author}</span>
-                  </p>
-                  <p>
-                    Estoque: <span>{element.stock}</span>
-                  </p>
-                  <p>
-                    Estado do livro: <span>{element.state}</span>
-                  </p>
-                  <button>Atualizar</button>
-                </div>
-              </StyledCard>
-            );
+          {filteredBooks.map((element) => {
+            if (element === null) {
+              return <div></div>;
+            } else {
+              return (
+                <StyledCard key={element.id}>
+                  <img src={element.avatar} alt="" />
+                  <div>
+                    <p>
+                      Título: <span>{element.title}</span>
+                    </p>
+                    <p>
+                      Autor: <span>{element.author}</span>
+                    </p>
+                    <p>
+                      Estoque: <span>{element.stock}</span>
+                    </p>
+                    <p>
+                      Estado do livro: <span>{element.state}</span>
+                    </p>
+                    <button>Atualizar</button>
+                  </div>
+                </StyledCard>
+              );
+            }
           })}
         </ul>
       </section>
