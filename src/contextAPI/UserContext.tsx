@@ -2,6 +2,7 @@ import { createContext, ReactNode, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import  {api}  from '../services/api' 
 
 
 
@@ -65,9 +66,9 @@ export function UserProvider({children}: iUserProviderProps){
             setUser(response.data.user);
             localStorage.setItem('tokenUser' ,response.data.accessToken);
             toast.success('login com sucesso');
-            setTimeout(()=>{
-                navigate('/dashboard');
-            },500)
+            // setTimeout(()=>{
+            //     navigate('/);
+            // },500)
             
         })
         .catch((err) => {
@@ -86,9 +87,9 @@ export function UserProvider({children}: iUserProviderProps){
             console.log(response)
             
             toast.success('Cadastro realizado com sucesso');
-            setTimeout(()=>{
-                navigate('/');
-            },500)
+            // setTimeout(()=>{
+            //     navigate('/');
+            // },500)
         })
         .catch((err) => {
            
