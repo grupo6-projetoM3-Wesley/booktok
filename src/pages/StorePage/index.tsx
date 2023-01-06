@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../assets/img/booktok.png";
-import { StyledStorePage } from "./style";
+import { StyledCard, StyledStorePage } from "./style";
 
 export const StorePage = () => {
   const store = {
@@ -14,6 +14,48 @@ export const StorePage = () => {
     plan: 1,
     id: 1,
   };
+
+  const books = [
+    {
+      storeId: 1,
+      title: "QUalquer coisa",
+      author: "aaaaaa",
+      genre: "action",
+      resume: "lorem ipsum",
+      image: "...",
+      stock: 3,
+      id: 1,
+      avatar:
+        "https://anatomiadapalavra.files.wordpress.com/2018/03/livro-o-gigante-enterrado-capa.png?w=730",
+      state: "Novo",
+    },
+    {
+      storeId: 1,
+      title: "QUalquer coisa",
+      author: "aaaaaa",
+      genre: "action",
+      resume: "lorem ipsum",
+      image: "...",
+      stock: 8,
+      id: 2,
+      avatar:
+        "https://anatomiadapalavra.files.wordpress.com/2018/03/livro-o-gigante-enterrado-capa.png?w=730",
+      state: "Novo",
+    },
+    {
+      storeId: 1,
+      title: "QUalquer coisa",
+      author: "aaaaaa",
+      genre: "action",
+      resume: "lorem ipsum",
+      image: "...",
+      stock: 15,
+      id: 3,
+      avatar:
+        "https://anatomiadapalavra.files.wordpress.com/2018/03/livro-o-gigante-enterrado-capa.png?w=730",
+      state: "Novo",
+    },
+  ];
 
   return (
     <StyledStorePage>
@@ -47,12 +89,37 @@ export const StorePage = () => {
         </div>
       </section>
       <section className="list-section">
-        <button>Cadastrar novo livro</button>
-        <div>
-          <input placeholder="Pesquisar livro"></input>
-          <button>Buscar</button>
+        <div className="new-book">
+          <button>Cadastrar novo livro</button>
+          <div className="filter-div">
+            <input placeholder="Pesquisar livro"></input>
+            <button>Buscar</button>
+          </div>
         </div>
-        <ul></ul>
+        <ul>
+          {books.map((element) => {
+            return (
+              <StyledCard key={element.id}>
+                <img src={element.avatar} alt="" />
+                <div>
+                  <p>
+                    Título: <span>{element.title}</span>
+                  </p>
+                  <p>
+                    Autor: <span>{element.author}</span>
+                  </p>
+                  <p>
+                    Estoque: <span>{element.stock}</span>
+                  </p>
+                  <p>
+                    Estado do livro: <span>{element.state}</span>
+                  </p>
+                  <button>Atualizar</button>
+                </div>
+              </StyledCard>
+            );
+          })}
+        </ul>
       </section>
     </StyledStorePage>
   );

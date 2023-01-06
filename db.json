@@ -4,32 +4,35 @@
     {
       "storeId": 1,
       "title": "QUalquer coisa",
-      "Author": "aaaaaa",
+      "author": "aaaaaa",
       "genre": "action",
       "resume": "lorem ipsum",
       "image": "...",
       "stock": 3,
-      "id": 1
+      "id": 1,
+      "image": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg"
     },
     {
       "storeId": 1,
       "title": "QUalquer coisa",
-      "Author": "aaaaaa",
+      "author": "aaaaaa",
       "genre": "action",
       "resume": "lorem ipsum",
       "image": "...",
       "stock": 8,
-      "id": 2
+      "id": 2,
+      "image": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg"
     },
     {
       "storeId": 1,
       "title": "QUalquer coisa",
-      "Author": "aaaaaa",
+      "author": "aaaaaa",
       "genre": "action",
       "resume": "lorem ipsum",
       "image": "...",
       "stock": 15,
-      "id": 3
+      "id": 3,
+      "image": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg"
     }
   ],
   "store": [

@@ -44,7 +44,7 @@ export const StyledStorePage = styled.div`
     width: 320px;
     height: 320px;
     border-radius: 160px;
-    position: fixed;
+    position: absolute;
     top: 160px;
     border: 3px solid white;
   }
@@ -72,5 +72,51 @@ export const StyledStorePage = styled.div`
   }
 
   .list-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #eeeeee;
+  }
+
+  ul {
+    display: flex;
+    gap: 61px;
+    background-color: #eeeeee;
+    margin-bottom: 46px;
+  }
+
+  .filter-div {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 32px;
+  }
+
+  .new-book {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+  }
+`;
+
+export const StyledCard = styled.li`
+  display: flex;
+  margin-top: 46px;
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
+  border-radius: 4px;
+
+  img {
+    width: 150px;
+    height: 200px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 24px;
+    gap: 8px;
   }
 `;
