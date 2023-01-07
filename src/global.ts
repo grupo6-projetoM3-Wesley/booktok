@@ -34,4 +34,23 @@ ul, ol, li{
 body {
     background-color:#EEEEEE;
 }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #02c5b7 transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #02c5b7;
+    border-radius: 5px;
+  }
 `;

@@ -1,20 +1,18 @@
 import React from 'react'
 import Logo from '../logo'
-import { StyledHeader, StyledHeaderContainer, StyledHeaderNav } from './header'
-import BtnHome from '../btnHome'
-import BtnLogout from '../btnLogout'
+import { StyledHeader, StyledHeaderContainer } from './header'
 
-const Header = () => {
-  return (
-    <StyledHeader>
-        <StyledHeaderContainer>
-            <Logo/>
-            <StyledHeaderNav>
-                <BtnHome/>
-                <BtnLogout/>
-            </StyledHeaderNav>
-        </StyledHeaderContainer>
-    </StyledHeader>
+
+const Header = ({ children }: { children: React.ReactNode }) => {
+    return (
+        <StyledHeader>
+            <StyledHeaderContainer>
+                <Logo />
+                <div>
+                    {children}
+                </div>
+            </StyledHeaderContainer>
+        </StyledHeader>
     )
 }
 

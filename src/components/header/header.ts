@@ -5,6 +5,7 @@ export const StyledHeader = styled.div`
     width: 100%;
     justify-content: center;
     background-color: #ffffff;
+    border-bottom: 1px solid #eee;
 `
 
 export const StyledHeaderContainer = styled.div`
@@ -13,9 +14,5 @@ export const StyledHeaderContainer = styled.div`
     width: 100%;
     max-width: 1200px;
     align-items: center;
-`
-
-export const StyledHeaderNav = styled.div`
-    display: flex;
-    gap: 89px;
+    padding: 20px;
 `
