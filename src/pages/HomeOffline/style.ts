@@ -34,7 +34,8 @@ export const StyledHomeOff = styled.div`
     font-size: 16px;
     color: #02c5b7;
   }
-  .btnLogin {
+  .btnLogin,
+  .btnGen {
     height: 30px;
     padding: 0 24px;
     font-size: 16px;
@@ -56,5 +57,45 @@ export const StyledHomeOff = styled.div`
     padding: 16px;
     border: 1px solid #02c5b7;
     border-radius: 16px;
+  }
+  .btnMenu {
+    margin: 16px 0;
+  }
+  .btnMenuContent {
+    max-width: 1195px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  .sectionLists {
+    margin: 48px 0 16px 0;
+  }
+
+  .storeList {
+    max-width: 1195px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .storeListMap {
+    display: flex;
+  }
+
+  .imgSebo {
+    width: 171px;
+    height: 210px;
+  }
+  .imgBook {
+    width: 93px;
+    height: 140px;
+  }
+  .cardList {
+    margin-left: 16px;
+    display: flex;
+    gap: 24px;
+  }
+  .cardListMap {
+    display: flex;
   }
 `;
