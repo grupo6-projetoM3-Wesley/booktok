@@ -1,11 +1,12 @@
-import { createContext, ReactNode } from 'react';
+import { createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { api } from '../services/api';
+import { AxiosError } from 'axios';
 
 interface iUserProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 export interface iDataLogin {
@@ -44,8 +45,9 @@ interface iUser {
 interface iUserContextTypes {
   setUser: React.Dispatch<React.SetStateAction<iUser>>;
   user: iUser;
+  loadingForm: boolean;
 
-  onSubmitFunctionLogin: (data: iDataLogin) => void;
+  onSubmitFunctionLogin: (data: iDataLogin) => Promise<void>;
   onSubmitFunctionRegister: (data: iDataRegisterUser) => void;
   onSubmitFunctionRegisterStore: (data: iDataRegisterUser) => void;
 }
@@ -54,26 +56,30 @@ export const UserContext = createContext({} as iUserContextTypes);
 
 export const UserProvider = ({ children }: iUserProviderProps) => {
   const [user, setUser] = useState({} as iUser);
+  const [loadingForm, setLoadingForm] = useState(false);
 
   const navigate = useNavigate();
 
-  const onSubmitFunctionLogin = (data: iDataLogin) => {
-    api
-      .post('/login', data)
-      .then((response) => {
-        console.log(response);
+  const onSubmitFunctionLogin = async (data: iDataLogin): Promise<void> => {
+    setLoadingForm(true)
+    try{
+      const { data: responseData } = await api.post<iUser>("/login", data);
 
-        setUser(response.data.user);
-        localStorage.setItem('tokenUser', response.data.accessToken);
-        toast.success('login com sucesso');
-        // setTimeout(()=>{
-        //     navigate('/login');
-        // },500)
-      })
-      .catch((err) => {
-        console.log(err);
-        toast.error('email ou senha incorreta');
-      });
+      localStorage.setItem('tokenUser', responseData.accessToken);
+
+      navigate('/dashboard');
+
+      toast.success('login com sucesso');
+    }  catch (err) {
+      const currentError = err as AxiosError;
+
+      const message =
+        (currentError.response?.data as string) || "Algo deu errado!";
+
+      toast.error(message);
+    } finally {
+      setLoadingForm(false);
+    }
   };
 
   const onSubmitFunctionRegister = (data: iDataRegisterUser) => {
@@ -118,6 +124,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         onSubmitFunctionRegisterStore,
         setUser,
         user,
+        loadingForm,
       }}
     >
       {children}
