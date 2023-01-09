@@ -42,18 +42,26 @@ interface iUser {
 }
 
 interface iUserContextTypes {
-  setUser: React.Dispatch<React.SetStateAction<iUser>>;
-  user: iUser;
+  // setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
+  user: iUser | null;
 
   onSubmitFunctionLogin: (data: iDataLogin) => void;
+  onSubmitFunctionLogout: () => void;
   onSubmitFunctionRegister: (data: iDataRegisterUser) => void;
   onSubmitFunctionRegisterStore: (data: iDataRegisterUser) => void;
+
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  form: React.ReactNode | null
+  setForm: React.Dispatch<React.SetStateAction<React.ReactNode | null>>;
 }
 
 export const UserContext = createContext({} as iUserContextTypes);
 
 export const UserProvider = ({ children }: iUserProviderProps) => {
-  const [user, setUser] = useState({} as iUser);
+  const [user, setUser] = useState<iUser | null>(null);
+  const [isOpen, setOpen] = useState(false);
+  const [form, setForm] = useState<React.ReactNode | null>(null);
 
   const navigate = useNavigate();
 
@@ -110,14 +118,24 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       });
   };
 
+  const onSubmitFunctionLogout = () => {
+    localStorage.clear();
+    setUser(null);
+  }
+
   return (
     <UserContext.Provider
       value={{
         onSubmitFunctionLogin,
+        onSubmitFunctionLogout,
         onSubmitFunctionRegister,
         onSubmitFunctionRegisterStore,
-        setUser,
+        // setUser,
         user,
+        isOpen,
+        setOpen,
+        form,
+        setForm,
       }}
     >
       {children}

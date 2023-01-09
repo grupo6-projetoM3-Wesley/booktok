@@ -144,3 +144,7 @@ export const StyledBookCard = styled.li`
     color: var(--color-black);
   }
 `
+export const StyledHeaderNav = styled.div`
+    display: flex;
+    gap: 89px;
+`
