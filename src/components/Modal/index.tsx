@@ -35,3 +35,17 @@ export const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, children }
     </ModalWrapper>
   ) : null;
 };
+
+    return (
+        <Container>
+            <Wrapper>
+                <header>
+                    <button onClick={closeModal}>Sair</button>
+                </header>
+                <Content>
+                    {children}
+                </Content>
+                <footer />
+            </Wrapper>
+        </Container>);
+}

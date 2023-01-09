@@ -50,6 +50,11 @@ interface iUserContextTypes {
   onSubmitFunctionLogin: (data: iDataLogin) => Promise<void>;
   onSubmitFunctionRegister: (data: iDataRegisterUser) => void;
   onSubmitFunctionRegisterStore: (data: iDataRegisterUser) => void;
+
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  form: React.ReactNode | null;
+  setForm: React.Dispatch<React.SetStateAction<React.ReactNode | null>>;
 }
 
 export const UserContext = createContext({} as iUserContextTypes);
@@ -61,20 +66,20 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const navigate = useNavigate();
 
   const onSubmitFunctionLogin = async (data: iDataLogin): Promise<void> => {
-    setLoadingForm(true)
-    try{
-      const { data: responseData } = await api.post<iUser>("/login", data);
+    setLoadingForm(true);
+    try {
+      const { data: responseData } = await api.post<iUser>('/login', data);
 
       localStorage.setItem('tokenUser', responseData.accessToken);
 
       navigate('/dashboard');
 
       toast.success('login com sucesso');
-    }  catch (err) {
+    } catch (err) {
       const currentError = err as AxiosError;
 
       const message =
-        (currentError.response?.data as string) || "Algo deu errado!";
+        (currentError.response?.data as string) || 'Algo deu errado!';
 
       toast.error(message);
     } finally {
@@ -116,13 +121,19 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       });
   };
 
+  const onSubmitFunctionLogout = () => {
+    localStorage.clear();
+    setUser(null);
+  };
+
   return (
     <UserContext.Provider
       value={{
         onSubmitFunctionLogin,
+        onSubmitFunctionLogout,
         onSubmitFunctionRegister,
         onSubmitFunctionRegisterStore,
-        setUser,
+        // setUser,
         user,
         loadingForm,
       }}
