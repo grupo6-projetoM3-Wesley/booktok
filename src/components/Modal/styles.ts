@@ -14,6 +14,8 @@ export const Container = styled.div`
     justify-content:center;
 
     z-index: 1;
+
+    background-color: rgba(89, 89, 89, 0.3);
 `
 
 export const Wrapper = styled.div`
@@ -30,6 +32,7 @@ export const Wrapper = styled.div`
 
     border-radius: 15px;
 
+
     & > header {
         text-align: right;
 
@@ -40,6 +43,25 @@ export const Wrapper = styled.div`
         padding: 20px;
 
         border-radius: 15px 15px 0px 0px;
+
+        color:#fff;
+    }
+
+    & > header > button {
+        text-align:center;
+
+        width: 25px;
+        height: 25px;
+
+        background-color: transparent;
+
+        border:2px solid #fff;
+
+        border-radius: 50%;
+        
+        color:#fff;
+
+        font-weight: 700;
     }
 
     & > footer {

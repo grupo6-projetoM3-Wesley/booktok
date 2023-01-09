@@ -40,7 +40,7 @@ export const Modal: React.FC<ModalProps> = ({ title, isOpen, onClose, children }
         <Container>
             <Wrapper>
                 <header>
-                    <button onClick={closeModal}>Sair</button>
+                    <button onClick={closeModal}>X</button>
                 </header>
                 <Content>
                     {children}

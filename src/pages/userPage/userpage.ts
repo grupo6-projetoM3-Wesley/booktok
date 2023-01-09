@@ -105,7 +105,7 @@ border-radius: 8px;
 export const StyledFavoritList = styled.ul`
   width: 100%;
   max-width: 1200px;
-  height: 100vh;
+  height: max-content;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
