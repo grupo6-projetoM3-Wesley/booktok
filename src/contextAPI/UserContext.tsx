@@ -32,13 +32,15 @@ export interface iDataRegisterStore {
   plan?: number;
 }
 
+interface iUserLoged{
+  id: string;
+  name: string;
+  email: string;
+}
+
 interface iUser {
   accessToken: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-  };
+  user: iUserLoged;
 }
 
 interface iUserContextTypes {
@@ -49,6 +51,8 @@ interface iUserContextTypes {
   onSubmitFunctionLogout: () => void;
   onSubmitFunctionRegister: (data: iDataRegisterUser) => void;
   onSubmitFunctionRegisterStore: (data: iDataRegisterUser) => void;
+  onSubmitFunctionUpdateUser: (data: iDataRegisterUser, user: iUserLoged)=> void;
+  onSubmitDeleteUser: (user: iUserLoged)=>void;
 
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -101,6 +105,23 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       });
   };
 
+  const onSubmitFunctionUpdateUser = (data: iDataRegisterUser, user: iUserLoged) => {
+    api
+      .put(`/users/${user.id}`, data)
+      .then((response) => {
+        console.log(response);
+
+        toast.success('Cadastro Atualizado com sucesso');
+        
+      })
+      .catch((err) => {
+        toast.error('Atualização não permitido');
+        console.log(err);
+      });
+  };
+
+
+
   const onSubmitFunctionRegisterStore = (data: iDataRegisterStore) => {
     api
       .post('/users', data)
@@ -123,6 +144,23 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     setUser(null);
   }
 
+  const onSubmitDeleteUser = (user: iUserLoged)=>{
+    api
+      .delete(`/users/${user.id}`)
+      .then((response) => {
+        console.log(response);
+
+        toast.success('Cadastro deletado com sucesso');
+        setTimeout(() => {
+          navigate('/');
+        }, 500);
+      })
+      .catch((err) => {
+        toast.error('Não foi possivel deletar conta');
+        console.log(err);
+      });
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -130,6 +168,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         onSubmitFunctionLogout,
         onSubmitFunctionRegister,
         onSubmitFunctionRegisterStore,
+        onSubmitFunctionUpdateUser,
+        onSubmitDeleteUser,
         // setUser,
         user,
         isOpen,

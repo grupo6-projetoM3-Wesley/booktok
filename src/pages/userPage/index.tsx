@@ -1,4 +1,4 @@
-import React from 'react'
+import React,  { useContext } from 'react'
 import DeleteButton from '../../components/btnDeleteProfile'
 import BtnHome from '../../components/btnHome'
 import BtnLogout from '../../components/btnLogout'
@@ -6,6 +6,8 @@ import ButtonRemove from '../../components/btnRemove'
 import ButtonUpdateAcount from '../../components/btnUpdateInfo'
 import Header from '../../components/header'
 import { StyledBookCard, StyledCardUserBtns, StyledCardUserInfo, StyledFavoritList, StyledHeaderNav, StyledListSection, StyledListSectionTitle, StyledUserBg, StyledUserCard, StyledUserImg, StyledUserPage, StyledUserSection } from './userpage'
+import { UserContext } from '../../contextAPI/UserContext'
+import { Modal } from '../../components/Modal'
 
 export const user = {
   email: 'store@store.com',
@@ -49,9 +51,14 @@ export const favoritebooks = [
 ];
 
 const UserPage = () => {
+  const { isOpen, form } = useContext(UserContext)
+
+  
 
   return (
-    <StyledUserPage>
+    <>
+    {isOpen && <Modal>{form}</Modal>}
+    <StyledUserPage >
       <Header>
         <StyledHeaderNav>
           <BtnHome />
@@ -102,6 +109,10 @@ const UserPage = () => {
         </StyledFavoritList>
       </StyledListSection>
     </StyledUserPage>
+    
+    
+    </>
+    
   )
 }
 

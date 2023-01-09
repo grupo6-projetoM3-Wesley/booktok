@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { StyledLogout } from './logout'
+import { UserContext } from '../../contextAPI/UserContext'
 
 const BtnLogout = () => {
+  const {onSubmitFunctionLogout} = useContext(UserContext)
+
   return (
-    <StyledLogout>
+    <StyledLogout onClick={onSubmitFunctionLogout}>
         Logout
     </StyledLogout>
   )

@@ -14,7 +14,7 @@ export const Modal = ({ children }: { children: React.ReactNode }) => {
         <Container>
             <Wrapper>
                 <header>
-                    <button onClick={closeModal}>Sair</button>
+                    <button onClick={closeModal}>X</button>
                 </header>
                 <Content>
                     {children}
