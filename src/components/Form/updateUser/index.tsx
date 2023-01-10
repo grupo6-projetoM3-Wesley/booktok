@@ -10,23 +10,22 @@ interface IFormValues {
     passwordConfirm: string;
     address: string;
     phone: string;
-    plan?: number;
+    avatar: string;
 }
 
-export const RegisterFormStore = () => {
-    const { onSubmitFunctionRegisterStore } = useContext(UserContext);
+export const UpdateForm = () => {
+    const { onSubmitFunctionUpdateUser , user } = useContext(UserContext);
     const { register, handleSubmit } = useForm<IFormValues>();
 
 
     return (
-        <Container onSubmit={handleSubmit(onSubmitFunctionRegisterStore)}>
-            <h1>Cadastrar</h1>
+        <Container >
+            <h1>Atualizar</h1>
             <input type="text" placeholder="Nome"{...register("name")} />
             <input type="email" placeholder="E-mail" {...register("email")} />
-            <input type="password" placeholder="Senha"  {...register("password")} />
-            <input type="password" placeholder="Confirmar Senha"  {...register("passwordConfirm")} />
             <input type="text" placeholder="Endereço (envio)" {...register("address")} />
+            <input type="text" placeholder="Imagem do perfil (URL)" {...register("avatar")} />
             <input type="text" placeholder="Telefone"  {...register("phone")} />
-            <button>Cadastrar</button>
+            <button>Atualizar</button>
         </Container>)
 }

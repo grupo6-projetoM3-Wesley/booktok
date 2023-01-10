@@ -40,6 +40,10 @@ export const Wrapper = styled.div`
         padding: 20px;
 
         border-radius: 15px 15px 0px 0px;
+
+        & button {
+            color: #fff;
+        }
     }
 
     & > footer {

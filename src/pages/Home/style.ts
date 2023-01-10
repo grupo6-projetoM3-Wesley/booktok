@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledHomeOff = styled.div<{ isOpen: boolean }>`
+export const StyledHome = styled.div<{ isOpen: boolean }>`
   filter: ${props => props.isOpen && "blur(5px)"};
 
   header {
