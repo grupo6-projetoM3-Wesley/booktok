@@ -3,6 +3,7 @@ import Logo from '../logo'
 import { StyledHeader, StyledHeaderContainer } from './header'
 
 
+
 const Header = ({ children }: { children: React.ReactNode }) => {
     return (
         <StyledHeader>

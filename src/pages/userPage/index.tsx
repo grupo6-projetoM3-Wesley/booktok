@@ -1,32 +1,60 @@
 import React, { useContext } from 'react'
-import DeleteButton from '../../components/btnDeleteProfile'
-import BtnHome from '../../components/btnHome'
-import BtnLogout from '../../components/btnLogout'
-import ButtonRemove from '../../components/btnRemove'
-import ButtonUpdateAcount from '../../components/btnUpdateInfo'
-import Header from '../../components/header'
-import { StyledBookCard, StyledCardUserBtns, StyledCardUserInfo, StyledFavoritList, StyledHeaderNav, StyledListSection, StyledListSectionTitle, StyledUserBg, StyledUserCard, StyledUserImg, StyledUserPage, StyledUserSection } from './userpage'
+import Header from '../../components/Header'
+import { StyledBookCard, StyledCardUserBtns, StyledCardUserInfo, StyledFavoritList, StyledHeaderNav, StyledLink, StyledListSection, StyledListSectionTitle, StyledUserBg, StyledUserCard, StyledUserPage, StyledUserSection } from './userpage'
 import { UserContext } from '../../contextAPI/UserContext'
 import { Modal } from '../../components/Modal'
-
+import { useNavigate } from 'react-router-dom'
+import { api } from "../../services/api";
+import profile from "../../assets/img/profile.jpg"
+import { DeleteUser } from '../../components/Form/DeleteUser'
+import { UpdateUser } from '../../components/Form/UpdateUser'
 
 const UserPage = () => {
-  const { user } = useContext(UserContext)
-  const { isOpen, form } = useContext(UserContext)
+  const { user, setUser, onSubmitFunctionLogout, setOpen, isOpen, setForm, form } = useContext(UserContext)
+  const navigate = useNavigate();
+
+  async function removeFavorite(id: number) {
+
+    const newFavorite = user?.favorite?.filter(item => item.id !== id)
+
+    if (user?.favorite) {
+      setUser({
+        ...user,
+        favorite: newFavorite
+      })
+    }
+
+    try {
+      const token = localStorage.getItem("tokenUser");
+
+      await api.patch("users/" + user?.id, user, {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleModal(form: React.ReactNode) {
+    setForm(form);
+    setOpen(true);
+  }
 
   return (
     <>
       {isOpen && <Modal>{form}</Modal>}
-      <StyledUserPage >
+      <StyledUserPage isOpen={isOpen} >
         <Header>
           <StyledHeaderNav>
-            <BtnHome />
-            <BtnLogout />
+            <StyledLink to="/" >Home</StyledLink>
+            <button onClick={onSubmitFunctionLogout}>Sair</button>
           </StyledHeaderNav>
         </Header>
         <StyledUserSection>
           <StyledUserBg />
-          <StyledUserImg src={user?.avatar} />
+          <img src={user?.avatar ? user.avatar : profile} alt={user?.name} />
           <StyledUserCard>
             <h2>Dados de usuário</h2>
             <StyledCardUserInfo>
@@ -35,8 +63,8 @@ const UserPage = () => {
               <p>Data de nascimento:<span>{user?.birthDay}</span></p>
             </StyledCardUserInfo>
             <StyledCardUserBtns>
-              <ButtonUpdateAcount />
-              <DeleteButton />
+              <button onClick={() => handleModal(<UpdateUser />)}>Atualizar</button>
+              <button onClick={() => handleModal(<DeleteUser />)}>Deletar</button>
             </StyledCardUserBtns>
           </StyledUserCard>
         </StyledUserSection>
@@ -60,7 +88,7 @@ const UserPage = () => {
                     <p>
                       Estado do livro: <span>{element.state}</span>
                     </p>
-                    <ButtonRemove />
+                    <button onClick={() => removeFavorite(element.id)}>Remover</button>
                   </div>
                 </StyledBookCard>
               )

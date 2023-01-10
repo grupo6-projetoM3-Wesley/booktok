@@ -123,4 +123,22 @@ export const Switch = styled.div`
         -webkit-transition: .4s;
         transition: .4s;
     }
+
+    input:checked + .slider {
+        background-color: #02C5B7;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
 `

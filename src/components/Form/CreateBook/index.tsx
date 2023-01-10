@@ -15,7 +15,7 @@ interface IFormValues {
     isStore: boolean
 }
 
-export const RegisterForm = () => {
+export const CreateBook = () => {
     const { onSubmitFunctionRegister } = useContext(UserContext);
     const { register, handleSubmit } = useForm<IFormValues>();
     const [checked, setChecked] = useState(false);

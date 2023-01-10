@@ -26,11 +26,12 @@
     },
     {
       "email": "leonardo@hotmail.com",
-      "password": "$2a$10$Tndo61QDsR/M/heahHRVm.6vrxI3bj/Z7pg06cDMt4TdAC3VQ4Dhm",
-      "name": "Leonardo",
-      "passwordConfirm": "leonardo",
-      "address": "Rua Leonardo",
-      "phone": "0123456798",
+      "password": "$2a$10$PRRFRNIVFzeT2GpiQHu2NuTd/d6nUBFARoFfy1PUMBL.rsfT8vHIW",
+      "name": "",
+      "passwordConfirm": "",
+      "address": "",
+      "phone": "",
+      "avatar": "",
       "isStore": false,
       "id": 3
     }
@@ -49,6 +50,7 @@
         "isStore": true,
         "favorites": []
       },
+      "userId": 1,
       "title": "Livro 1",
       "author": "Livro 1 Author",
       "genre": "Livro 1 Genêro",
@@ -61,39 +63,38 @@
     },
     {
       "user": {
-        "email": "user@mail.com",
-        "password": "$2a$10$ZrS3TenEZsAXpEqbLzjK8.wch5MOfIIcKxd5um4nzkzPr06NNrz0O",
-        "name": "User 1",
-        "address": "R. User 1, N 1",
-        "phone": "(01) 012345678",
-        "plan": 1,
-        "id": 1,
-        "avatar": "https://5coisas.org/wp-content/uploads/2015/04/Livraria-Saraiva-1.jpg",
-        "isStore": true,
-        "favorites": []
+        "email": "leonardo@hotmail.com",
+        "password": "$2a$10$PRRFRNIVFzeT2GpiQHu2NuTd/d6nUBFARoFfy1PUMBL.rsfT8vHIW",
+        "name": "",
+        "passwordConfirm": "",
+        "address": "",
+        "phone": "",
+        "avatar": "",
+        "isStore": false,
+        "id": 3
       },
-      "title": "Livro 2",
+      "title": "Livro 2 TESTE",
       "author": "Livro 2 Author",
       "genre": "Livro 2 Genêro",
       "resume": "Livro 2 Resumo",
       "stock": 1,
       "id": 2,
+      "userId": 3,
       "avatar": "https://edit.org/photos/images/cat/portadas-libros-big-2019101610.jpg-1300.jpg",
       "state": "Novo",
-      "price": 24.9
+      "price": "24.9"
     },
     {
       "user": {
-        "email": "store@mail.com",
-        "password": "$2a$10$ZrS3TenEZsAXpEqbLzjK8.wch5MOfIIcKxd5um4nzkzPr06NNrz0O",
-        "name": "Store 1",
-        "address": "R. Store 1, N 1",
-        "phone": "(01) 012345678",
-        "plan": 1,
-        "id": 2,
-        "avatar": "https://thumbs.dreamstime.com/z/livros-na-loja-de-livros-das-amazonas-93709453.jpg",
-        "isStore": true,
-        "favorites": []
+        "email": "leonardo@hotmail.com",
+        "password": "$2a$10$PRRFRNIVFzeT2GpiQHu2NuTd/d6nUBFARoFfy1PUMBL.rsfT8vHIW",
+        "name": "",
+        "passwordConfirm": "",
+        "address": "",
+        "phone": "",
+        "avatar": "",
+        "isStore": false,
+        "id": 3
       },
       "title": "Livro 3",
       "author": "Livro 3 Author",
@@ -101,6 +102,7 @@
       "resume": "Livro 3 Resumo",
       "stock": 1,
       "id": 3,
+      "userId": 3,
       "avatar": "https://m.media-amazon.com/images/I/51Ya2eTZVPL.jpg",
       "state": "Novo",
       "price": 24.9

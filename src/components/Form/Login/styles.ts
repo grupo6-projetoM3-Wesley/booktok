@@ -46,6 +46,7 @@ export const Container = styled.form`
 
         & > span {
             color: #02C5B7;
+            cursor: pointer;
         }
     }
 `
