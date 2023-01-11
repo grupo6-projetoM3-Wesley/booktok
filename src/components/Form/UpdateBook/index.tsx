@@ -20,23 +20,23 @@ export const UpdateBook = ({ id, title, author, genre, resume, avatar, price, st
     const { user, books } = useContext(UserContext);
     const { register, handleSubmit } = useForm<IFormValues>();
 
-    async function onSubmitFunctionUpdateBook(formValue: IFormValues) {
 
-        const token = localStorage.getItem("tokenUser");
+
+    async function onSubmitFunctionUpdateBook(formValue: IFormValues) {
+        const book = books.filter(item => item.user.id === user?.id).find(item => item.id === id);
 
         try {
-            const updateBook = { ...formValue, id};
-            const indexBook = books.findIndex(item => item.id === id)
+            const token = localStorage.getItem("tokenUser");
 
-            // const newBooks = books.splice(indexBook - 1, 1, updateBook);
+            console.log(await api.patch("books/" + id, formValue, {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            }));
 
-            // await api.patch("books/" + id, formValue, {
-            //     headers: {
-            //         Authorization: "Bearer " + token
-            //     }
-            // });
         } catch (error) {
             console.log(error);
+            
         }
     }
 
