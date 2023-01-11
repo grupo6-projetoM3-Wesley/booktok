@@ -2,6 +2,7 @@ import { createContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { api } from '../services/api';
+import { AxiosError } from 'axios';
 
 interface iUserProviderProps {
   children: React.ReactNode;
@@ -48,23 +49,23 @@ export interface iUser {
 }
 
 export interface iBook {
-  user: iUser,
-  title: string,
-  author: string,
-  genre: string,
-  resume: string,
-  stock: number,
-  id: number,
-  avatar: string,
-  state: string,
-  price: number
+  user: iUser;
+  title: string;
+  author: string;
+  genre: string;
+  resume: string;
+  stock: number;
+  id: number;
+  avatar: string;
+  state: string;
+  price: number;
 }
 
 interface iUserContextTypes {
   user: iUser | null;
   setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
 
-  books: iBook[],
+  books: iBook[];
   stores: iBook[][];
   bookFiltered: iBook[][];
   setBookFiltered: React.Dispatch<React.SetStateAction<iBook[][]>>;
@@ -94,12 +95,12 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await api.get<iBook[]>("books")
+      const { data } = await api.get<iBook[]>('books');
 
       setBooks(data);
 
       const groupUsersByID: iBook[][] = data.reduce((acc: any, obj: iBook) => {
-        let key = `${obj.user.isStore ? "Store" : "User"}:${obj.user.id}`
+        let key = `${obj.user.isStore ? 'Store' : 'User'}:${obj.user.id}`;
 
         if (!acc[key]) {
           acc[key] = [];
@@ -108,55 +109,51 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         return acc;
       }, {});
 
-      const getStoreInGroup: iBook[][] = Object.entries(groupUsersByID).filter(item => item[0].startsWith("Store")).map(item => item[1]);
+      const getStoreInGroup: iBook[][] = Object.entries(groupUsersByID)
+        .filter((item) => item[0].startsWith('Store'))
+        .map((item) => item[1]);
 
       setStores(getStoreInGroup);
       setBookFiltered(getStoreInGroup);
-    })()
-  }, [])
+    })();
+  }, []);
 
   const onSubmitFunctionLogin = async (data: iDataLogin) => {
     try {
-      const response = await api.post('/login', data)
+      const response = await api.post('/login', data);
 
-      setUser(response.data.user)
+      setUser(response.data.user);
 
       localStorage.setItem('tokenUser', response.data.accessToken);
       setOpen(false);
-
     } catch (error) {
-      console.log("Usuário e/ou senha inválido(s)");
-
+      console.log('Usuário e/ou senha inválido(s)');
     }
   };
 
   const onSubmitFunctionRegister = async (data: iDataRegisterUser) => {
-
     try {
-      const response = await api.post("users", data)
+      const response = await api.post('users', data);
       console.log(response);
 
-      console.log("Usuário cadastrado com sucesso");
+      console.log('Usuário cadastrado com sucesso');
       setOpen(false);
-
     } catch (error) {
-      console.log("Não foi possível cadastrar esse usuário");
+      console.log('Não foi possível cadastrar esse usuário');
     }
   };
 
   const onSubmitFunctionUpdateUser = async (data: iDataUpdateUser) => {
     try {
-      const token = localStorage.getItem("tokenUser");
+      const token = localStorage.getItem('tokenUser');
 
-
-      const response = await api.patch("users/" + user?.id, {
+      const response = await api.patch('users/' + user?.id, {
         headers: {
-          Authorization: "Bearer " + token
-        }
+          Authorization: 'Bearer ' + token,
+        },
       });
 
       setUser(response.data.user);
-
     } catch (error) {
       console.log(error);
     }
@@ -164,11 +161,11 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
   const onSubmitDeleteUser = async () => {
     try {
-      const token = localStorage.getItem("tokenUser");
-      await api.delete("users/" + user?.id, {
+      const token = localStorage.getItem('tokenUser');
+      await api.delete('users/' + user?.id, {
         headers: {
-          Authorization: "Bearer " + token
-        }
+          Authorization: 'Bearer ' + token,
+        },
       });
 
       setUser(null);
@@ -176,17 +173,16 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       setOpen(false);
       localStorage.clear();
 
-      navigate("/");
-
+      navigate('/');
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const onSubmitFunctionLogout = () => {
     localStorage.clear();
     setUser(null);
-    navigate("/")
+    navigate('/');
   };
 
   return (
@@ -213,4 +209,3 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     </UserContext.Provider>
   );
 };
-
