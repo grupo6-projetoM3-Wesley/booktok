@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { useForm } from "react-hook-form"
-import { iUser, UserContext } from "../../../contextAPI/UserContext";
+import { useForm } from "react-hook-form";
+import { UserContext } from "../../../contextAPI/UserContext";
 import { api } from "../../../services/api";
-import { Container, Switch } from "./styles"
+import { Container } from "./styles";
 
 export interface iFormValues {
     title: string,
@@ -17,46 +17,50 @@ export interface iFormValues {
 }
 
 export const CreateBook = () => {
-    const { user, books, setForm, setOpen } = useContext(UserContext)
+    const { user, books, setForm, setOpen, setbookStoreFiltered, bookStoreFiltered } = useContext(UserContext)
     const { register, handleSubmit } = useForm<iFormValues>();
 
-    async function onSubmitCreateBook(formValue: iFormValues) {
-        const stock = books.filter(item => item.user.id === user?.id).find(item => item.title.toLowerCase() === formValue.title.toLowerCase());
+    async function createBook(formValue: iFormValues) {
+        const currentBook = books.filter(item => item.user.id === user?.id).find(item => item.title.toLowerCase() === formValue.title.toLowerCase());
 
         const newBook = {
             userId: user?.id,
             user,
             ...formValue,
-            stock: stock ? stock.stock + 1 : 1
+            stock: currentBook && currentBook.stock ? currentBook.stock + 1 : 1
         }
 
         try {
             const token = localStorage.getItem("tokenUser");
-            
-            if (stock) {
-                console.log(await api.patch("books/" + stock.id, newBook, {
+
+            if (currentBook?.stock) {
+                await api.patch("books/" + currentBook.id, newBook, {
                     headers: {
                         Authorization: "Bearer " + token
                     }
-                }))
+                })
             } else {
-                console.log(await api.post("books/", newBook, {
+                await api.post("books/", newBook, {
                     headers: {
                         Authorization: "Bearer " + token
                     }
-                }))
+                })
             }
+
         } catch (error) {
             console.log(error);
-            
+
         } finally {
+            if (user) {
+                setbookStoreFiltered([...bookStoreFiltered, { ...newBook, user }]);
+            }
             setForm(null);
             setOpen(false);
         }
     }
 
     return (
-        <Container onSubmit={handleSubmit(onSubmitCreateBook)}>
+        <Container onSubmit={handleSubmit(createBook)}>
             <h1>Cadastrar</h1>
             <input type="text" placeholder="Titulo"{...register("title")} />
             <input type="text" placeholder="Autor" {...register("author")} />

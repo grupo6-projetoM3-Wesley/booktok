@@ -88,31 +88,8 @@ export const StyledStorePage = styled.div<{ isOpen: boolean }>`
     width: 320px;
     height: 320px;
     border-radius: 160px;
-    position: absolute;
-    top: 160px;
     border: 3px solid white;
-  }
-
-  .store-data {
-    width: 480px;
-    height: 254px;
-    display: flex;
-    flex-direction: column;
-    background-color: #ffffff;
-    margin-top: 202px;
-    padding: 16px 24px;
-    box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
-    border-radius: 4px;
-    gap: 20px;
-
-    h2 {
-      align-self: center;
-    }
-
-    div {
-      display: flex;
-      justify-content: space-around;
-    }
+    z-index: 1;
   }
 
   .list-section {
@@ -121,6 +98,10 @@ export const StyledStorePage = styled.div<{ isOpen: boolean }>`
     align-items: center;
     background-color: #eeeeee;
     margin-top: 150px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 100px 0;
+    margin: 0 auto; 
 
     input {
       width: 512px;
@@ -137,6 +118,11 @@ export const StyledStorePage = styled.div<{ isOpen: boolean }>`
     gap: 61px;
     background-color: #eeeeee;
     margin-bottom: 46px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
   }
 
   .filter-div {
@@ -197,7 +183,10 @@ export const StyledCard = styled.li`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
   border-radius: 4px;
-  flex-wrap: wrap;
+  min-width: 150px;
+  max-width: 510px;
+  width: 100%;
+  
 
   img {
     width: 150px;
@@ -263,26 +252,21 @@ color: #EEEEEE;
 export const StyledUserSection = styled.section`
   display: flex;
   width: 100%;
-  flex-direction: column;
   align-items: center;
- 
-  & > img {
-  background-color: red;
-  width: 320px;
-  height: 320px;
-  position: absolute;
-  top: 20%;
-  border-radius: 100%;
-  border: 5px solid white;
-  object-fit: cover;
-}
+  justify-content: center;
+  position: relative;
+
+  gap: 50px;
+
+  padding-top: 100px;
 `
 
 export const StyledUserBg = styled.div`
 background-color: var(--color-primary);
 width: 100%;
 height: 223px;
-position: relative;
+top: 0;
+position: absolute;
 `
 
 export const StyledUserCard = styled.div`
@@ -291,11 +275,12 @@ display: flex;
 flex-direction: column;
 justify-content: space-between;
 background-color: var(--color-white);
-margin-top: 202px;
 padding: 16px 24px;
 box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
 border-radius: 4px;
 gap: 20px;
+z-index: 1;
+  background-color: white;
 
   h2 {
   align-self: center;

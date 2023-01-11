@@ -16,7 +16,7 @@ interface IFormValues {
 }
 
 export const RegisterForm = () => {
-    const { onSubmitFunctionRegister } = useContext(UserContext);
+    const { createUser } = useContext(UserContext);
     const { register, handleSubmit } = useForm<IFormValues>();
     const [checked, setChecked] = useState(false);
 
@@ -25,7 +25,7 @@ export const RegisterForm = () => {
     }
 
     return (
-        <Container onSubmit={handleSubmit(onSubmitFunctionRegister)}>
+        <Container onSubmit={handleSubmit(createUser)}>
             <h1>Cadastrar</h1>
             <input type="text" placeholder="Nome"{...register("name")} />
             <input type="email" placeholder="E-mail" {...register("email")} />
@@ -34,6 +34,7 @@ export const RegisterForm = () => {
             <input type="text" placeholder="Endereço (envio)" {...register("address")} />
             <input type="text" placeholder="Telefone"  {...register("phone")} />
             <input type="text" placeholder="Avatar"  {...register("avatar")} />
+            <input type="text" placeholder="Data de nascimento"  {...register("birthDay")} />
             <Switch>
                 <label className="switch">
                     <input type="checkbox" {...register("isStore")} />

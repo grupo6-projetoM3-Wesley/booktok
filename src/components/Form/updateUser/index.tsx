@@ -17,54 +17,19 @@ interface iFormValues {
 
 export const UpdateUser = () => {
   const { user } = useContext(UserContext);
-  const { onSubmitFunctionUpdateUser } = useContext(UserContext);
+  const { updateUser } = useContext(UserContext);
   const { register, handleSubmit } = useForm<iFormValues>();
 
   return (
-    <Container onSubmit={handleSubmit(onSubmitFunctionUpdateUser)}>
+    <Container onSubmit={handleSubmit(updateUser)}>
       <h1>Atualizar</h1>
-      <input
-        type='text'
-        placeholder='Nome'
-        value={user?.name}
-        {...register('name')}
-      />
-      <input
-        type='email'
-        placeholder='E-mail'
-        value={user?.email}
-        {...register('email')}
-      />
-      <input
-        type='password'
-        placeholder='Senha'
-        value={user?.password}
-        {...register('password')}
-      />
-      <input
-        type='text'
-        placeholder='Endereço (envio)'
-        value={user?.address}
-        {...register('address')}
-      />
-      <input
-        type='text'
-        placeholder='Data de Nascimento'
-        value={user?.birthDay}
-        {...register('birthDay')}
-      />
-      <input
-        type='text'
-        placeholder='Imagem do perfil (URL)'
-        value={user?.avatar}
-        {...register('avatar')}
-      />
-      <input
-        type='text'
-        placeholder='Telefone'
-        value={user?.phone}
-        {...register('phone')}
-      />
+      <input type='text' placeholder='Nome' defaultValue={user?.name} {...register('name')} />
+      <input type='email' placeholder='E-mail' defaultValue={user?.email} {...register('email')} />
+      <input type='password' placeholder='Senha' defaultValue={user?.password} {...register('password')} />
+      <input type='text' placeholder='Endereço (envio)' defaultValue={user?.address} {...register('address')} />
+      <input type='text' placeholder='Data de Nascimento' defaultValue={user?.birthDay} {...register('birthDay')} />
+      <input type='text' placeholder='Imagem do perfil (URL)' defaultValue={user?.avatar} {...register('avatar')} />
+      <input type='text' placeholder='Telefone' defaultValue={user?.phone} {...register('phone')} />
       <button>Atualizar</button>
     </Container>
   );

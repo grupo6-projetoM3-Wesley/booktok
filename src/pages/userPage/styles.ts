@@ -14,52 +14,61 @@ export const StyledUserPage = styled.div<{ isOpen: boolean }>`
 export const StyledUserSection = styled.section`
   display: flex;
   width: 100%;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  position: relative;
+
+  gap: 50px;
+
+  padding-top: 100px;
+
 
   & > img {
     background-color: red;
     width: 320px;
     height: 320px;
-    position: absolute;
-    top: 20%;
     border-radius: 100%;
     border: 5px solid white;
     object-fit: cover;
+    z-index: 1;
   }
 `;
 
 export const StyledUserBg = styled.div`
-  background-color: var(--color-primary);
-  width: 100%;
-  height: 223px;
-  position: relative;
-`;
+background-color: var(--color-primary);
+width: 100%;
+height: 223px;
+top: 0;
+position: absolute;
+`
+
 export const StyledUserCard = styled.div`
-  width: 480px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: var(--color-white);
-  margin-top: 202px;
-  padding: 16px 24px;
-  box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
-  border-radius: 4px;
-  gap: 20px;
+width: 480px;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+background-color: var(--color-white);
+padding: 16px 24px;
+box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
+border-radius: 4px;
+gap: 20px;
+z-index: 1;
+  background-color: white;
 
   h2 {
-    align-self: center;
-    color: #4e2096;
-    font-size: 24px;
-    font-weight: 700;
-  }
-`;
+  align-self: center;
+  color: #4E2096;
+  font-size: 24px;
+  font-weight: 700;
+}
+`
 
 export const StyledCardUserInfo = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
   gap: 4px;
+
   p {
     font-size: 16px;
     font-weight: 600;
@@ -121,7 +130,7 @@ export const StyledListSection = styled.section`
   flex-direction: column;
   align-items: center;
   background-color: var(--color-grey1);
-  padding-bottom: 300px;
+  padding: 100px 0;
 `;
 
 export const StyledListSectionTitle = styled.div`

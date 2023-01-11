@@ -1,32 +1,28 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../../assets/img/booktok.png';
-import profile from "../../assets/img/profile.jpg"
+import profile from "../../assets/img/profile.jpg";
 import { CreateBook } from '../../components/Form/CreateBook';
 import { DeleteUser } from '../../components/Form/DeleteUser';
 import { UpdateBook } from '../../components/Form/UpdateBook';
 import { UpdateUser } from '../../components/Form/UpdateUser';
 import Header from '../../components/Header';
 import { Modal } from '../../components/Modal';
-import { iBook, UserContext } from '../../contextAPI/UserContext';
-import { Content, StyledCard, StyledCardUserBtns, StyledCardUserInfo, StyledHeaderNav, StyledLink, StyledStorePage, StyledUserBg, StyledUserCard, StyledUserSection } from './style';
+import { UserContext } from '../../contextAPI/UserContext';
+import { StyledCard, StyledCardUserBtns, StyledCardUserInfo, StyledHeaderNav, StyledLink, StyledStorePage, StyledUserBg, StyledUserCard, StyledUserSection } from './styles';
 
 
 export const StorePage = () => {
-  const { user, books, onSubmitFunctionLogout, setForm, setOpen, isOpen, form } = useContext(UserContext)
-  const [bookFiltered, setBookFiltered] = useState<iBook[]>(books);
+  const { user, onSubmitFunctionLogout, setForm, setOpen, isOpen, form, bookStore, setbookStoreFiltered, bookStoreFiltered } = useContext(UserContext)
+  // const [bookStore, setBookStore] = useState<iBook[] | null>(null)
+  // const [bookStoreFiltered, setbookStoreFiltered] = useState<iBook[] | null>(null)
   const [search, setSearch] = useState("");
 
-
   useEffect(() => {
-    const storeBooks = books.filter(item => item.user.id === user?.id)
-    setBookFiltered(storeBooks);
+    const booksFiltered = bookStore?.filter(item => item.title.toLowerCase().startsWith(search.toLowerCase()));
 
-  }, [])
+    if (booksFiltered) {
+      setbookStoreFiltered(booksFiltered);
+    }
 
-  useEffect(() => {
-    const booksFiltered = books.filter(item => item.title.toLowerCase().startsWith(search.toLowerCase()));
-    setBookFiltered(booksFiltered);
   }, [search]);
 
   function handleModal(form: React.ReactNode) {
@@ -53,7 +49,7 @@ export const StorePage = () => {
               <p>Nome<span> {user?.name}</span></p>
               <p>Email<span> {user?.email}</span></p>
               <p>Endereço<span> {user?.address} </span></p>
-              <p>Quantidade<span> {bookFiltered.length}</span></p>
+              <p>Quantidade<span> {bookStore?.length}</span></p>
             </StyledCardUserInfo>
             <StyledCardUserBtns>
               <button onClick={() => handleModal(<UpdateUser />)}>Atualizar</button>
@@ -63,7 +59,7 @@ export const StorePage = () => {
         </StyledUserSection>
         <section className='list-section'>
           <div className='new-book'>
-            <button onClick={() => handleModal(<CreateBook/>)}>Cadastrar novo livro</button>
+            <button onClick={() => handleModal(<CreateBook />)}>Cadastrar novo livro</button>
             <div className='filter-div'>
               <input
                 placeholder='Pesquisar livro'
@@ -73,9 +69,9 @@ export const StorePage = () => {
             </div>
           </div>
           <ul>
-            {bookFiltered.map((book) => {
+            {bookStoreFiltered?.map((book) => {
               return (
-                <StyledCard key={book.id}>
+                <StyledCard key={book.id + book.title}>
                   <img src={book.avatar} alt='' />
                   <div>
                     <p>
@@ -90,7 +86,7 @@ export const StorePage = () => {
                     <p>
                       Estado do livro: <span>{book.state}</span>
                     </p>
-                    <button onClick={() => handleModal(<UpdateBook {...book}/>)}>Atualizar</button>
+                    <button onClick={() => handleModal(<UpdateBook {...book} />)}>Atualizar</button>
                   </div>
                 </StyledCard>
               );
