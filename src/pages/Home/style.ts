@@ -1,232 +1,268 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const StyledHomeOff = styled.div<{ isOpen: boolean }>`
+export const StyledHome = styled.div<{ isOpen: boolean }>`
   filter: ${props => props.isOpen && "blur(5px)"};
-
-  header {
-    border-bottom: 1px solid #eeeeee;
-  }
-  .headerContent {
-    max-width: 1195px;
-    margin: 0 auto;
-    padding: 16px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .imgLogo {
-    width: 396px;
-    height: 98px;
-  }
-  .loginContent {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 16px;
-  }
-  .btnContent {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .btnRegister {
-    height: 30px;
-    padding: 0 24px;
-    border: 1px solid #02c5b7;
-    border-radius: 16px;
-    font-size: 16px;
-    color: #02c5b7;
-  }
-  .btnLogin, .btnLogout {
-    height: 30px;
-    padding: 0 24px;
-    font-size: 16px;
-    border-radius: 16px;
-    background-color: #02c5b7;
-    color: white;
-  }
-  .search {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  label {
-    font-size: 14px;
-  }
-  input {
-    height: 35px;
-    width: 228px;
-    padding: 16px;
-    border: 1px solid #02c5b7;
-    border-radius: 16px;
-  }
 `;
 
-export const Picture = styled.picture`
-  height: 100%;
-  flex: 1;
+export const StyledLink = styled(Link)`
+height: 100%;
+flex: 1;
 
   & > img {
-    width: 60px;
-    border-radius: 100%;
-    background-color: black;
-  }
-`
-
-export const Container = styled.main`
+  object-fit: cover;
   width: 100%;
-
-
-  background-color: #fff;
-`
-
-export const Wrapper = styled.div`
-  max-width: 1200px;
-  height: 100%;
-
-  padding: 20px;
-  margin: 0 auto;
-
-  display: flex;
-  flex-direction: column;
-
-  align-items: flex-start;
-  justify-content: flex-start;
-
-  gap: 40px;
-`
-
-export const BookFilter = styled.ul`
-  width: 100%;
-
-  display: flex;
-
-  align-items: center;
-  justify-content: flex-start;
-
-  gap: 20px;
-
-  padding: 10px;
-
-  overflow-x: scroll;
-
-  li {
-    background-color: var(--color-primary);
-    color: #fff;
-    border-radius: 16px;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 10px 20px;
-    text-transform: capitalize;
-
-    cursor: pointer;
-    transition: transform 0.2s;
-
-    &:hover{
-      filter: brightness(1.1);
-      transform: translateY(-2px);
-    }
-    
-    &:active {
-      transform: translateY(1px);
-    }
-  }
-`
-
-export const BookSection = styled.section`
-  width: 100%;
-  height: 350px;
-
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-
-  gap: 20px;
-  padding: 20px;
-
-  border-radius: 15px;
-
-  background-color: #EEEEEE;
-
-  & > div:first-child{
-    padding-top: 5px;
-    height: 310px;
-    width: 200px;
-
-    & > img{
-      height: 100%;
-      width: 100%;
-
-      object-fit: cover;
-
-      border-radius: 15px;
-    }
+  max-width: 60px;
+  border-radius: 100%;
+  background-color: black;
 }
 `
 
-export const BooksList = styled.div`
-  width: 100%;
-  height:100%;
+export const Container = styled.main`
+width: 100%;
 
-  overflow-x: scroll;
 
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  padding: 0 20px;
-  padding-bottom: 15px;
-  gap: 20px;
+background-color: #fff;
 `
 
-export const BookContent = styled.div`
-  height: 100%;
-  min-width: 200px;
+export const Wrapper = styled.div`
+max-width: 1200px;
+height: 100%;
 
-  display: flex;
-  flex-direction: column;
+padding: 20px;
+margin: 0 auto;
 
-  align-items:center;
-  justify-content: center;
+display: flex;
+flex-direction: column;
 
-  gap: 10px;
-  padding: 10px;
+align-items: flex-start;
+justify-content: flex-start;
 
-  border-radius: 15px;
+gap: 40px;
+`
 
-  background-color: #fff;
+export const BookFilter = styled.ul`
+width: 100%;
+
+display: flex;
+
+align-items: center;
+justify-content: flex-start;
+
+gap: 20px;
+
+padding: 10px;
+
+overflow-x: scroll;
+
+  li {
+  background-color: var(--color-primary);
+  color: #fff;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+  text-transform: capitalize;
+
+  cursor: pointer;
+  transition: transform 0.2s;
+
+    &:hover{
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+  }
+    
+    &:active {
+    transform: translateY(1px);
+  }
+}
+`
+
+export const BookSection = styled.section`
+width: 100%;
+height: 350px;
+
+display: flex;
+align-items: flex-start;
+justify-content: flex-start;
+
+gap: 20px;
+padding: 20px;
+
+border-radius: 15px;
+
+background-color: #EEEEEE;
+
+  & > div:first-child {
+  padding-top: 5px;
+  height: 310px;
+  width: 200px;
+
+    & > img{
+    height: 100%;
+    width: 100%;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+  }
+}
+`
+
+export const BooksList = styled.ul`
+width: 100%;
+height: 100%;
+
+overflow-x: scroll;
+
+display: flex;
+align-items: center;
+justify-content: flex-start;
+
+padding: 0 20px;
+padding-bottom: 15px;
+gap: 20px;
+`
+
+export const BookContent = styled.li`
+height: 100%;
+min-width: 200px;
+
+display: flex;
+flex-direction: column;
+
+align-items: center;
+justify-content: center;
+
+gap: 10px;
+padding: 10px;
+
+border-radius: 15px;
+
+background-color: #fff;
  
   & > div:first-child {
     & > img {
-      height: 180px;
-      object-fit: contain;
-      border-radius: 5px;
+    height: 180px;
+    object-fit: contain;
+    border-radius: 5px;
+  }
+}
+
+  & > div:last-child {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: 10px;
+
+    & > h3 {
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+
+    & > button {
+    background-color: var(--color-primary);
+    color: #fff;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    text-transform: capitalize;
+  }
+}
+`
+
+export const Content = styled.div`
+width: 100%;
+height: 100%;
+
+display: flex;
+flex-direction: column;
+
+align-items: flex-end;
+justify-content: flex-start;
+
+gap: 10px;
+
+& > div:first-child{
+  display: flex;
+
+  align-items: flex-center;
+  justify-content: flex-start;
+
+  gap: 20px;
+
+  & > div {
+    display: flex;
+
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 20px;
+  }
+
+  & button {
+    padding: 10px 20px;
+    
+    font-size: 16px;
+    font-weight: 600;
+    
+    border-radius: 16px;
+  }
+
+  & > div:first-child{
+      & > button:first-child {
+      background-color: transparent;
+      border: 1px solid var(--color-primary);
+      color: var(--color-primary); 
+    }
+
+    & > button:last-child{
+      background-color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+      color: #EEEEEE;
     }
   }
 
+
   & > div:last-child {
     display: flex;
-    flex-direction: column;
 
-    align-items:center;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: space-between;
 
-    gap: 10px;
+    width: 100%;
 
-    & > h3 {
-      font-size: 16px;
-      text-transform: uppercase;
-    }
-
-    & > button {
+    & > button{
       background-color: var(--color-primary);
-      color: #fff;
-      border-radius: 15px;
-      font-size: 12px;
-      font-weight: 600;
-      padding: 5px 10px;
-      text-transform: capitalize;
+      border: 1px solid var(--color-primary);
+      color: #EEEEEE;
     }
-  } 
+  }
+}
+
+& > div:last-child{
+  width: 100%;
+  height: 100%;
+
+  & > input {
+    width: 100%;
+    height: 100%;
+
+    padding: 5px 15px;
+
+    border-radius: 16px;
+    border: 1px solid #eee;
+
+    outline: none;
+
+    :focus {
+      border: 1px solid var(--color-primary);
+    }
+  }
+}
 `
 

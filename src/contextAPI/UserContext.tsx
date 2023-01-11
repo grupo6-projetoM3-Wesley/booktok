@@ -1,7 +1,6 @@
-import { createContext } from 'react';
+import { createContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import toast from 'react-hot-toast';
 import { api } from '../services/api';
 import { AxiosError } from 'axios';
 
@@ -20,40 +19,62 @@ export interface iDataRegisterUser {
   name: string;
   passwordConfirm: string;
   address: string;
+  avatar?: string;
+  birthDay?: string;
   phone: string;
+  isStore: boolean;
 }
 
-export interface iDataRegisterStore {
-  email: string;
-  password: string;
+export interface iDataUpdateUser {
+  email?: string;
+  password?: string;
+  name?: string;
+  address?: string;
+  avatar?: string;
+  birthDay?: string;
+  phone?: string;
+}
+
+export interface iUser {
+  id: string;
+  avatar?: string;
   name: string;
-  passwordConfirm: string;
+  email: string;
   address: string;
   phone: string;
-  plan?: number;
+  password?: string;
+  birthDay?: string;
+  isStore: boolean;
+  favorite?: iBook[];
 }
 
-interface iUserLoged{
-  id: string;
-  name: string;
-  email: string;
-}
-
-interface iUser {
-  accessToken: string;
-  user: iUserLoged;
+export interface iBook {
+  user: iUser;
+  title: string;
+  author: string;
+  genre: string;
+  resume: string;
+  stock: number;
+  id: number;
+  avatar: string;
+  state: string;
+  price: number;
 }
 
 interface iUserContextTypes {
-  setUser: React.Dispatch<React.SetStateAction<iUser>>;
-  user: iUser;
-  loadingForm: boolean;
+  user: iUser | null;
+  setUser: React.Dispatch<React.SetStateAction<iUser | null>>;
+
+  books: iBook[];
+  stores: iBook[][];
+  bookFiltered: iBook[][];
+  setBookFiltered: React.Dispatch<React.SetStateAction<iBook[][]>>;
 
   onSubmitFunctionLogin: (data: iDataLogin) => Promise<void>;
-  onSubmitFunctionRegister: (data: iDataRegisterUser) => void;
-  onSubmitFunctionRegisterStore: (data: iDataRegisterUser) => void;
-  onSubmitFunctionUpdateUser: (data: iDataRegisterUser, user: iUserLoged)=> void;
-  onSubmitDeleteUser: (user: iUserLoged)=>void;
+  onSubmitFunctionLogout: () => void;
+  onSubmitFunctionRegister: (data: iDataRegisterUser) => Promise<void>;
+  onSubmitFunctionUpdateUser: (data: iDataUpdateUser) => Promise<void>;
+  onSubmitDeleteUser: () => Promise<void>;
 
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -64,118 +85,124 @@ interface iUserContextTypes {
 export const UserContext = createContext({} as iUserContextTypes);
 
 export const UserProvider = ({ children }: iUserProviderProps) => {
-  const [user, setUser] = useState({} as iUser);
-  const [loadingForm, setLoadingForm] = useState(false);
-
+  const [user, setUser] = useState<iUser | null>(null);
+  const [stores, setStores] = useState<iBook[][]>([]);
+  const [books, setBooks] = useState<iBook[]>([]);
+  const [isOpen, setOpen] = useState(false);
+  const [form, setForm] = useState<React.ReactNode | null>(null);
   const navigate = useNavigate();
+  const [bookFiltered, setBookFiltered] = useState<iBook[][]>([]);
 
-  const onSubmitFunctionLogin = async (data: iDataLogin): Promise<void> => {
-    setLoadingForm(true);
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.get<iBook[]>('books');
+
+      setBooks(data);
+
+      const groupUsersByID: iBook[][] = data.reduce((acc: any, obj: iBook) => {
+        let key = `${obj.user.isStore ? 'Store' : 'User'}:${obj.user.id}`;
+
+        if (!acc[key]) {
+          acc[key] = [];
+        }
+        acc[key].push(obj);
+        return acc;
+      }, {});
+
+      const getStoreInGroup: iBook[][] = Object.entries(groupUsersByID)
+        .filter((item) => item[0].startsWith('Store'))
+        .map((item) => item[1]);
+
+      setStores(getStoreInGroup);
+      setBookFiltered(getStoreInGroup);
+    })();
+  }, []);
+
+  const onSubmitFunctionLogin = async (data: iDataLogin) => {
     try {
-      const { data: responseData } = await api.post<iUser>('/login', data);
+      const response = await api.post('/login', data);
 
-      localStorage.setItem('tokenUser', responseData.accessToken);
+      setUser(response.data.user);
 
-      navigate('/dashboard');
-
-      toast.success('login com sucesso');
-    } catch (err) {
-      const currentError = err as AxiosError;
-
-      const message =
-        (currentError.response?.data as string) || 'Algo deu errado!';
-
-      toast.error(message);
-    } finally {
-      setLoadingForm(false);
+      localStorage.setItem('tokenUser', response.data.accessToken);
+      setOpen(false);
+    } catch (error) {
+      console.log('Usuário e/ou senha inválido(s)');
     }
   };
 
-  const onSubmitFunctionRegister = (data: iDataRegisterUser) => {
-    api
-      .post('/users', data)
-      .then((response) => {
-        console.log(response);
+  const onSubmitFunctionRegister = async (data: iDataRegisterUser) => {
+    try {
+      const response = await api.post('users', data);
+      console.log(response);
 
-        toast.success('Cadastro realizado com sucesso');
-        setTimeout(() => {
-          navigate('/login');
-        }, 500);
-      })
-      .catch((err) => {
-        toast.error('Cadastro não permitido');
-        console.log(err);
-      });
+      console.log('Usuário cadastrado com sucesso');
+      setOpen(false);
+    } catch (error) {
+      console.log('Não foi possível cadastrar esse usuário');
+    }
   };
 
-  const onSubmitFunctionUpdateUser = (data: iDataRegisterUser, user: iUserLoged) => {
-    api
-      .put(`/users/${user.id}`, data)
-      .then((response) => {
-        console.log(response);
+  const onSubmitFunctionUpdateUser = async (data: iDataUpdateUser) => {
+    try {
+      const token = localStorage.getItem('tokenUser');
 
-        toast.success('Cadastro Atualizado com sucesso');
-        
-      })
-      .catch((err) => {
-        toast.error('Atualização não permitido');
-        console.log(err);
+      const response = await api.patch('users/' + user?.id, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
       });
+
+      setUser(response.data.user);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-
-
-  const onSubmitFunctionRegisterStore = (data: iDataRegisterStore) => {
-    api
-      .post('/users', data)
-      .then((response) => {
-        console.log(response);
-
-        toast.success('Cadastro realizado com sucesso');
-        setTimeout(() => {
-          navigate('/login');
-        }, 500);
-      })
-      .catch((err) => {
-        toast.error('Cadastro não permitido');
-        console.log(err);
+  const onSubmitDeleteUser = async () => {
+    try {
+      const token = localStorage.getItem('tokenUser');
+      await api.delete('users/' + user?.id, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
       });
+
+      setUser(null);
+      setForm(null);
+      setOpen(false);
+      localStorage.clear();
+
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onSubmitFunctionLogout = () => {
     localStorage.clear();
     setUser(null);
+    navigate('/');
   };
-
-  const onSubmitDeleteUser = (user: iUserLoged)=>{
-    api
-      .delete(`/users/${user.id}`)
-      .then((response) => {
-        console.log(response);
-
-        toast.success('Cadastro deletado com sucesso');
-        setTimeout(() => {
-          navigate('/');
-        }, 500);
-      })
-      .catch((err) => {
-        toast.error('Não foi possivel deletar conta');
-        console.log(err);
-      });
-  }
 
   return (
     <UserContext.Provider
       value={{
+        user,
+        setUser,
+        books,
+        stores,
+        bookFiltered,
+        setBookFiltered,
+        isOpen,
+        setOpen,
+        form,
+        setForm,
         onSubmitFunctionLogin,
         onSubmitFunctionLogout,
         onSubmitFunctionRegister,
-        onSubmitFunctionRegisterStore,
         onSubmitFunctionUpdateUser,
         onSubmitDeleteUser,
-        // setUser,
-        user,
-        loadingForm,
       }}
     >
       {children}

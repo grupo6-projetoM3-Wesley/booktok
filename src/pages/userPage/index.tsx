@@ -1,119 +1,135 @@
-import React,  { useContext } from 'react'
-import DeleteButton from '../../components/btnDeleteProfile'
-import BtnHome from '../../components/btnHome'
-import BtnLogout from '../../components/btnLogout'
-import ButtonRemove from '../../components/btnRemove'
-import ButtonUpdateAcount from '../../components/btnUpdateInfo'
-import Header from '../../components/header'
-import { StyledBookCard, StyledCardUserBtns, StyledCardUserInfo, StyledFavoritList, StyledHeaderNav, StyledListSection, StyledListSectionTitle, StyledUserBg, StyledUserCard, StyledUserImg, StyledUserPage, StyledUserSection } from './userpage'
-import { UserContext } from '../../contextAPI/UserContext'
-import { Modal } from '../../components/Modal'
+import React, { useContext } from 'react';
+import Header from '../../components/Header';
+import {
+  StyledBookCard,
+  StyledCardUserBtns,
+  StyledCardUserInfo,
+  StyledFavoritList,
+  StyledHeaderNav,
+  StyledLink,
+  StyledListSection,
+  StyledListSectionTitle,
+  StyledUserBg,
+  StyledUserCard,
+  StyledUserPage,
+  StyledUserSection,
+} from './userpage';
+import { UserContext } from '../../contextAPI/UserContext';
+import { Modal } from '../../components/Modal';
+import { useNavigate } from 'react-router-dom';
+import { api } from '../../services/api';
+import profile from '../../assets/img/profile.jpg';
+import { DeleteUser } from '../../components/Form/DeleteUser';
+import { UpdateUser } from '../../components/Form/UpdateUser';
 
-export const user = {
-  email: 'store@store.com',
-  name: 'Teste de Uuarioa',
-  birth_date: '26/06/2000',
-  avatar:
-    'https://conteudo.imguol.com.br/c/noticias/1c/2022/05/24/imagem-criada-no-imagen-prototipo-do-google-que-cria-imagens-baseadas-em-texto-neste-caso-um-cachorro-corgi-andando-de-bicicleta-na-times-square-usando-oculos-de-sol-e-chapeu-de-praia-1653397634334_v2_900x506.jpg',
-  id: 1,
-};
-export const favoritebooks = [
-  {
-    title: 'QUalquer coisa',
-    author: 'aaaaaa',
-    genre: 'action',
-    resume: 'lorem ipsum',
-    id: 1,
-    state: 'Novo',
-    avatar:
-      'https://anatomiadapalavra.files.wordpress.com/2018/03/livro-o-gigante-enterrado-capa.png?w=730',
-  },
-  {
-    title: 'QUalquer coisa',
-    author: 'aaaaaa',
-    genre: 'action',
-    resume: 'lorem ipsum',
-    id: 2,
-    state: 'Semi-Novo',
-    avatar:
-      'https://anatomiadapalavra.files.wordpress.com/2018/03/livro-o-gigante-enterrado-capa.png?w=730',
-  },
-  {
-    title: 'QUalquer coisa',
-    author: 'aaaaaa',
-    genre: 'action',
-    resume: 'lorem ipsum',
-    id: 3,
-    state: 'Novo',
-    avatar:
-      'https://anatomiadapalavra.files.wordpress.com/2018/03/livro-o-gigante-enterrado-capa.png?w=730',
-  },
-];
+export const UserPage = () => {
+  const {
+    user,
+    setUser,
+    onSubmitFunctionLogout,
+    setOpen,
+    isOpen,
+    setForm,
+    form,
+  } = useContext(UserContext);
+  const navigate = useNavigate();
 
-const UserPage = () => {
-  const { isOpen, form } = useContext(UserContext)
+  async function removeFavorite(id: number) {
+    const newFavorite = user?.favorite?.filter((item) => item.id !== id);
 
-  
+    if (user?.favorite) {
+      setUser({
+        ...user,
+        favorite: newFavorite,
+      });
+    }
+
+    try {
+      const token = localStorage.getItem('tokenUser');
+
+      await api.patch('users/' + user?.id, user, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleModal(form: React.ReactNode) {
+    setForm(form);
+    setOpen(true);
+  }
 
   return (
     <>
-    {isOpen && <Modal>{form}</Modal>}
-    <StyledUserPage >
-      <Header>
-        <StyledHeaderNav>
-          <BtnHome />
-          <BtnLogout />
-        </StyledHeaderNav>
-      </Header>
-      <StyledUserSection>
-        <StyledUserBg />
-        <StyledUserImg src={user.avatar} />
-        <StyledUserCard>
-          <h2>Dados de usuário</h2>
-          <StyledCardUserInfo>
-            <p>Nome:<span>{user.name}</span></p>
-            <p>Email:<span>{user.email}</span></p>
-            <p>Data de nascimento:<span>{user.birth_date}</span></p>
-          </StyledCardUserInfo>
-          <StyledCardUserBtns>
-            <ButtonUpdateAcount />
-            <DeleteButton />
-          </StyledCardUserBtns>
-        </StyledUserCard>
-      </StyledUserSection>
-      <StyledListSection>
-        <StyledListSectionTitle><h2>Favoritos</h2></StyledListSectionTitle>
-        <StyledFavoritList>
-          {favoritebooks.map((element) => {
-            return (
-              <StyledBookCard key={element.id}>
-                <img src={element.avatar} alt="" />
-                <div>
-                  <p>
-                    Título: <span>{element.title}</span>
-                  </p>
-                  <p>
-                    Autor: <span>{element.author}</span>
-                  </p>
-                  <p>
-                    Genero: <span>{element.genre}</span>
-                  </p>
-                  <p>
-                    Estado do livro: <span>{element.state}</span>
-                  </p>
-                  <ButtonRemove />
-                </div>
-              </StyledBookCard>
-            )
-          })}
-        </StyledFavoritList>
-      </StyledListSection>
-    </StyledUserPage>
-    
-    
+      {isOpen && <Modal>{form}</Modal>}
+      <StyledUserPage isOpen={isOpen}>
+        <Header>
+          <StyledHeaderNav>
+            <StyledLink to='/'>Home</StyledLink>
+            <button onClick={onSubmitFunctionLogout}>Sair</button>
+          </StyledHeaderNav>
+        </Header>
+        <StyledUserSection>
+          <StyledUserBg />
+          <img src={user?.avatar ? user.avatar : profile} alt={user?.name} />
+          <StyledUserCard>
+            <h2>Dados de usuário</h2>
+            <StyledCardUserInfo>
+              <p>
+                Nome:<span>{user?.name}</span>
+              </p>
+              <p>
+                Email:<span>{user?.email}</span>
+              </p>
+              <p>
+                Data de nascimento:<span>{user?.birthDay}</span>
+              </p>
+            </StyledCardUserInfo>
+            <StyledCardUserBtns>
+              <button onClick={() => handleModal(<UpdateUser />)}>
+                Atualizar
+              </button>
+              <button onClick={() => handleModal(<DeleteUser />)}>
+                Deletar
+              </button>
+            </StyledCardUserBtns>
+          </StyledUserCard>
+        </StyledUserSection>
+        <StyledListSection>
+          <StyledListSectionTitle>
+            <h2>Favoritos</h2>
+          </StyledListSectionTitle>
+          <StyledFavoritList>
+            {user?.favorite?.map((element) => {
+              return (
+                <StyledBookCard key={element.id}>
+                  <img src={element.avatar} alt='' />
+                  <div>
+                    <p>
+                      Título: <span>{element.title}</span>
+                    </p>
+                    <p>
+                      Autor: <span>{element.author}</span>
+                    </p>
+                    <p>
+                      Genero: <span>{element.genre}</span>
+                    </p>
+                    <p>
+                      Estado do livro: <span>{element.state}</span>
+                    </p>
+                    <button onClick={() => removeFavorite(element.id)}>
+                      Remover
+                    </button>
+                  </div>
+                </StyledBookCard>
+              );
+            })}
+          </StyledFavoritList>
+        </StyledListSection>
+      </StyledUserPage>
     </>
-    
-  )
-}
-
-export default UserPage
+  );
+};

@@ -1,50 +1,56 @@
-import { BooksList, BookSection, Picture, StyledHomeOff, BookContent, Container, Wrapper, BookFilter } from "./style";
+import { BooksList, BookSection, StyledHome, BookContent, Container, Wrapper, BookFilter, StyledLink, Content } from "./style";
 import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../contextAPI/UserContext";
-import Header from "../../components/header";
+import { iBook, UserContext } from "../../contextAPI/UserContext";
+import Header from "../../components/Header";
 import profile from "../../assets/img/profile.jpg"
-import { books, stores } from "../StorePage";
 import { LoginForm } from "../../components/Form/Login";
 import { Modal } from "../../components/Modal";
 import { RegisterForm } from "../../components/Form/Register";
-import { RegisterFormStore } from "../../components/Form/RegisterStore";
+import { Book } from "../../components/Form/Book";
 
-interface IBook {
-  storeId: number,
-  title: string,
-  author: string,
-  genre: string,
-  resume: string,
-  stock: number,
-  id: number,
-  avatar: string,
-  state: string,
-  price: number
-}
 
 export const Home = () => {
-  const { user, onSubmitFunctionLogout, isOpen, setOpen, form, setForm } = useContext(UserContext)
-  const [book, setBook] = useState<IBook[]>(books);
-  const [bookFiltered, setBookFiltered] = useState(books);
+  const { user, setBookFiltered, bookFiltered, onSubmitFunctionLogout, isOpen, setOpen, form, setForm, books, stores } = useContext(UserContext)
+
   const [search, setSearch] = useState("");
 
-  const listGenreFiltered = book.map(item => item.genre).filter((a, b) => book.map(item => item.genre).indexOf(a) === b);
+  const listGenreFiltered = books.map(item => item.genre).filter((a, b) => books.map(item => item.genre).indexOf(a) === b);
 
   useEffect(() => {
-    const booksFiltered = book.filter(item => item.title.toLowerCase().startsWith(search.toLowerCase()));
-    setBookFiltered(booksFiltered);
+    const booksFiltered = books.filter(item => item.title.toLowerCase().startsWith(search.toLowerCase()));
+
+    const gambiarrinha = gambiarra(booksFiltered);
+
+    setBookFiltered(gambiarrinha);
+
   }, [search]);
 
-  function handleListFilter(genre: string) {
+  function gambiarra(gambiarrinha: iBook[]) {
+    const groupUsersByID: iBook[][] = gambiarrinha.reduce((acc: any, obj: iBook) => {
+      let key = `${obj.user.isStore ? "Store" : "User"}:${obj.user.id}`
 
-    const booksFiltered = book.filter(item => item.genre.toLowerCase() === genre.toLowerCase());
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(obj);
+      return acc;
+    }, {});
+
+    const getStoreInGroup: iBook[][] = Object.entries(groupUsersByID).filter(item => item[0].startsWith("Store")).map(item => item[1]);
+    return getStoreInGroup;
+  }
+
+  function handleListFilter(genre: string) {
+    const booksFiltered = books.filter(item => item.genre.toLowerCase() === genre.toLowerCase());
+
+    const gambiarrinha = gambiarra(booksFiltered);
 
     setSearch("");
-    setBookFiltered(booksFiltered);
+    setBookFiltered(gambiarrinha);
 
   };
 
-  function handleClickUser(form: React.ReactNode) {
+  function handleModal(form: React.ReactNode) {
     setForm(form)
     setOpen(true);
   }
@@ -52,64 +58,60 @@ export const Home = () => {
   return (
     <>
       {isOpen && <Modal>{form}</Modal>}
-      <StyledHomeOff isOpen={isOpen}>
+      <StyledHome isOpen={isOpen}>
         <Header>
-          <div className="loginContent">
-            <div className="btnContent">
+          <Content>
+            <div>
               {!user
-                ? <>
-                  <button onClick={() => handleClickUser(<RegisterFormStore />)} className="btnRegister">Cadastro Loja</button>
-                  <button onClick={() => handleClickUser(<RegisterForm />)} className="btnRegister">Cadastro Usuário</button>
-                  <button onClick={() => handleClickUser(<LoginForm />)} className="btnLogin">Entrar</button>
-                </>
-                : <>
-                  <Picture><img src={profile} alt={profile} /></Picture>
-                  <button onClick={onSubmitFunctionLogout} className="btnLogout">Logout</button>
-                </>
+                ? <div>
+                  <button onClick={() => handleModal(<RegisterForm />)} className="btnRegister">Cadastrar</button>
+                  <button onClick={() => handleModal(<LoginForm />)} className="btnLogin">Entrar</button>
+                </div>
+                : <div>
+                  <StyledLink to={user.isStore ? "/dashboard" : "/userdash"}><img src={user.avatar ? user.avatar : profile} alt={user.name} /></StyledLink>
+                  <button onClick={onSubmitFunctionLogout} className="btnLogout">Sair</button>
+                </div>
               }
             </div>
-            <div className="search">
-              <label htmlFor="">Pesquise o Título</label>
-              <input value={search} onChange={(event) => setSearch(event.target.value)} type="text" />
+            <div>
+              <label hidden htmlFor="search">Pesquise o Título</label>
+              <input value={search} name="search" onChange={(event) => setSearch(event.target.value)} placeholder="Pesquise o Título" type="text" />
             </div>
-          </div>
+          </Content>
         </Header>
         <Container>
           <Wrapper>
-            <BookFilter>
-              <li onClick={() => setBookFiltered(book)}>Todos</li>
-              {listGenreFiltered.map(item => <li onClick={() => handleListFilter(item)} key={item}>{item}</li>)}
-            </BookFilter>
-            {stores.map(store => {
-              return (
-                <BookSection key={store.id}>
+            <>
+              <BookFilter>
+                <li onClick={() => setBookFiltered(stores)}>Todos</li>
+                {listGenreFiltered.map(item => <li onClick={() => handleListFilter(item)} key={item}>{item}</li>)}
+              </BookFilter>
+              {bookFiltered.map(store => {
+                return (
+                <BookSection key={store[0].user.id}>
                   <div>
-                    <img src={store.avatar} alt={store.name} />
+                    <img src={store[0].user.avatar} alt={store[0].user.avatar} />
                   </div>
                   <BooksList>
-                    {bookFiltered.map(book => {
+                    {store.map(book => {
                       return (
-                        book.storeId === store.id &&
-                        <BookContent key={book.id}>
-                          <div>
+                        <BookContent key={book.id} onClick={(() => handleModal(<Book book={book} />))} >
+                          <div >
                             <img src={book.avatar} alt={book.title} />
                           </div>
                           <div>
                             <h3>{book.title}</h3>
-                            {user
-                              ? <span>R$ {book.price}</span>
-                              : <button>Vamos trocar?</button>
-                            }
+                            <span>R$ {book.price}</span>
                           </div>
                         </BookContent>)
                     })}
                   </BooksList>
-                </BookSection>
-              )
-            })}
+                </BookSection>)
+              })}
+            </>
           </Wrapper>
         </Container>
-      </StyledHomeOff>
+      </StyledHome>
     </>
   );
 };
