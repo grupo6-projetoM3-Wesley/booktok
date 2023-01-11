@@ -34,6 +34,17 @@
       "avatar": "",
       "isStore": false,
       "id": 3
+    },
+    {
+      "email": "rhuankb@gmail.com",
+      "password": "$2a$10$ycApQEQcBln/sOzEXrsXqO2PCWz/U8Cb35YCVB3z9AWwGMqVzV2QC",
+      "name": "RHUAN KISIOLAR BARTELT FERREIRA",
+      "passwordConfirm": "12345",
+      "address": "Rua Engenheiro Fernando Mendes Ribeiro",
+      "phone": "51994041001",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvepXD3aHXerBnqjI4Zv6C7JPgHQHzdruSeVLv7HQy&s",
+      "isStore": false,
+      "id": 4
     }
   ],
   "books": [
