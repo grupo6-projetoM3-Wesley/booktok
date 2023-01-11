@@ -10,9 +10,11 @@ interface iBookProps {
 export const Book = ({ book }: iBookProps) => {
     const { user, setUser } = useContext(UserContext)
     const { title, resume } = book;
+    const utterance = new SpeechSynthesisUtterance()
+
+    utterance.text = resume;
 
     function handleFavorite() {
-
         if (user) {
             const isExist = user.favorite?.some(item => item.id === book.id)
 
@@ -31,11 +33,26 @@ export const Book = ({ book }: iBookProps) => {
         }
     }
 
+
+    function readToMe() {
+        if (!window.speechSynthesis.paused) {
+            window.speechSynthesis.speak(utterance)
+            return;
+        }
+        window.speechSynthesis.resume();
+    }
+
+    function stopReading() {
+        window.speechSynthesis.pause();
+    }
+
     return (
         <Container>
             <h1>{title}</h1>
             <button type="button" onClick={handleFavorite}>Favoritar</button>
-            <p>{resume} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis consequuntur assumenda pariatur animi molestiae asperiores minus eos. Sit ducimus sint porro doloribus, odio cumque fuga, unde blanditiis, veniam dicta beatae?</p>
+            <button type="button" onClick={() => readToMe()}>Ler</button>
+            <button type="button" onClick={() => stopReading()}>Parar</button>
+            <p>{resume}</p>
             <button>Comprar</button>
         </Container>)
 }

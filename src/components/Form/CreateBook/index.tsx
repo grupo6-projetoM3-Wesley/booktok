@@ -1,48 +1,70 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useForm } from "react-hook-form"
-import { UserContext } from "../../../contextAPI/UserContext";
+import { iUser, UserContext } from "../../../contextAPI/UserContext";
+import { api } from "../../../services/api";
 import { Container, Switch } from "./styles"
 
-interface IFormValues {
-    email: string;
-    password: string;
-    name: string;
-    passwordConfirm: string;
-    address: string;
-    birthDay: string;
-    phone: string;
-    avatar?:string;
-    isStore: boolean
+export interface iFormValues {
+    title: string,
+    author: string,
+    genre: string,
+    resume: string,
+    stock: number,
+    id: number,
+    avatar: string,
+    state: string,
+    price: number
 }
 
 export const CreateBook = () => {
-    const { onSubmitFunctionRegister } = useContext(UserContext);
-    const { register, handleSubmit } = useForm<IFormValues>();
-    const [checked, setChecked] = useState(false);
+    const { user, books, setForm, setOpen } = useContext(UserContext)
+    const { register, handleSubmit } = useForm<iFormValues>();
 
-    function handleSwitch() {
-        setChecked(true)
+    async function onSubmitCreateBook(formValue: iFormValues) {
+        const stock = books.filter(item => item.user.id === user?.id).find(item => item.title.toLowerCase() === formValue.title.toLowerCase());
+
+        const newBook = {
+            userId: user?.id,
+            user,
+            ...formValue,
+            stock: stock ? stock.stock + 1 : 1
+        }
+
+        try {
+            const token = localStorage.getItem("tokenUser");
+            
+            if (stock) {
+                console.log(await api.patch("books/" + stock.id, newBook, {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                }))
+            } else {
+                console.log(await api.post("books/", newBook, {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                }))
+            }
+        } catch (error) {
+            console.log(error);
+            
+        } finally {
+            setForm(null);
+            setOpen(false);
+        }
     }
 
     return (
-        <Container onSubmit={handleSubmit(onSubmitFunctionRegister)}>
+        <Container onSubmit={handleSubmit(onSubmitCreateBook)}>
             <h1>Cadastrar</h1>
-            <input type="text" placeholder="Nome"{...register("name")} />
-            <input type="email" placeholder="E-mail" {...register("email")} />
-            <input type="password" placeholder="Senha"  {...register("password")} />
-            <input type="password" placeholder="Confirmar Senha"  {...register("passwordConfirm")} />
-            <input type="text" placeholder="Endereço (envio)" {...register("address")} />
-            <input type="text" placeholder="Telefone"  {...register("phone")} />
-            <input type="text" placeholder="Avatar"  {...register("avatar")} />
-            <Switch>
-                <label className="switch">
-                    <input type="checkbox" {...register("isStore")} />
-                    <span className="slider round"></span>
-                    <span className="first">Pessoa Física</span>
-                    <span className="last">Pessoa Jurídica</span>
-                </label>
-            </Switch>
+            <input type="text" placeholder="Titulo"{...register("title")} />
+            <input type="text" placeholder="Autor" {...register("author")} />
+            <input type="text" placeholder="Genêro"  {...register("genre")} />
+            <input type="text" placeholder="Resumo"  {...register("resume")} />
+            <input type="text" placeholder="Foto do Livro" {...register("avatar")} />
+            <input type="number" placeholder="Preço"  {...register("price")} />
+            <input type="text" placeholder="Condição"  {...register("state")} />
             <button>Cadastrar</button>
-
         </Container >)
 }
