@@ -1,5 +1,11 @@
 import React, { useContext } from 'react';
+import profile from '../../assets/img/profile.jpg';
+import { DeleteUser } from '../../components/Form/DeleteUser';
+import { UpdateUser } from '../../components/Form/UpdateUser';
 import Header from '../../components/Header';
+import { Modal } from '../../components/Modal';
+import { UserContext } from '../../contextAPI/UserContext';
+import { api } from '../../services/api';
 import {
   StyledBookCard,
   StyledCardUserBtns,
@@ -12,15 +18,8 @@ import {
   StyledUserBg,
   StyledUserCard,
   StyledUserPage,
-  StyledUserSection,
-} from './userpage';
-import { UserContext } from '../../contextAPI/UserContext';
-import { Modal } from '../../components/Modal';
-import { useNavigate } from 'react-router-dom';
-import { api } from '../../services/api';
-import profile from '../../assets/img/profile.jpg';
-import { DeleteUser } from '../../components/Form/DeleteUser';
-import { UpdateUser } from '../../components/Form/UpdateUser';
+  StyledUserSection
+} from './styles';
 
 export const UserPage = () => {
   const {
@@ -32,7 +31,6 @@ export const UserPage = () => {
     setForm,
     form,
   } = useContext(UserContext);
-  const navigate = useNavigate();
 
   async function removeFavorite(id: number) {
     const newFavorite = user?.favorite?.filter((item) => item.id !== id);

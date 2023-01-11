@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
-import { useForm } from "react-hook-form"
-import { iUser, UserContext } from "../../../contextAPI/UserContext";
+import { useContext } from "react";
+import { useForm } from "react-hook-form";
+import { UserContext } from "../../../contextAPI/UserContext";
 import { api } from "../../../services/api";
-import { Container, Switch } from "./styles"
+import { Container } from "./styles";
 
 interface IFormValues {
     title: string,
@@ -17,13 +17,13 @@ interface IFormValues {
 }
 
 export const UpdateBook = ({ id, title, author, genre, resume, avatar, price, state }: IFormValues) => {
-    const { user, books } = useContext(UserContext);
+    const { user, books, setForm, setOpen, bookStoreFiltered, setbookStoreFiltered, getAllBooks } = useContext(UserContext);
     const { register, handleSubmit } = useForm<IFormValues>();
 
 
 
-    async function onSubmitFunctionUpdateBook(formValue: IFormValues) {
-        const book = books.filter(item => item.user.id === user?.id).find(item => item.id === id);
+    async function updateBook(formValue: IFormValues) {
+        // const book = books.filter(item => item.user.id === user?.id).find(item => item.id === id);
 
         try {
             const token = localStorage.getItem("tokenUser");
@@ -33,15 +33,31 @@ export const UpdateBook = ({ id, title, author, genre, resume, avatar, price, st
                     Authorization: "Bearer " + token
                 }
             }));
-
         } catch (error) {
             console.log(error);
-            
+
+        } finally {
+
+            if (user) {
+                const newBooks = bookStoreFiltered.filter(item => {
+                    if (item.id === id) {
+                        return {
+                            ...formValue, user
+                        }
+                    }
+                    return item
+                })
+                setbookStoreFiltered(newBooks);
+
+            }
+            await getAllBooks()
+            setForm(null)
+            setOpen(false)
         }
     }
 
     return (
-        <Container onSubmit={handleSubmit(onSubmitFunctionUpdateBook)}>
+        <Container onSubmit={handleSubmit(updateBook)}>
             <h1>Cadastrar</h1>
             <input type="text" placeholder="title" defaultValue={title} {...register("title")} />
             <input type="text" placeholder="author" defaultValue={author} {...register("author")} />

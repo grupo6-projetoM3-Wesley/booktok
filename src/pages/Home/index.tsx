@@ -1,12 +1,12 @@
-import { BooksList, BookSection, StyledHome, BookContent, Container, Wrapper, BookFilter, StyledLink, Content } from "./style";
 import { useContext, useEffect, useState } from "react";
-import { iBook, UserContext } from "../../contextAPI/UserContext";
-import Header from "../../components/Header";
-import profile from "../../assets/img/profile.jpg"
-import { LoginForm } from "../../components/Form/Login";
-import { Modal } from "../../components/Modal";
-import { RegisterForm } from "../../components/Form/Register";
+import profile from "../../assets/img/profile.jpg";
 import { Book } from "../../components/Form/Book";
+import { LoginForm } from "../../components/Form/Login";
+import { RegisterForm } from "../../components/Form/Register";
+import Header from "../../components/Header";
+import { Modal } from "../../components/Modal";
+import { iBook, UserContext } from "../../contextAPI/UserContext";
+import { BookContent, BookFilter, BookSection, BooksList, Container, Content, StyledHome, StyledLink, Wrapper } from "./styles";
 
 
 export const Home = () => {
@@ -18,9 +18,9 @@ export const Home = () => {
 
   useEffect(() => {
     const booksFiltered = books.filter(item => item.title.toLowerCase().startsWith(search.toLowerCase()));
-
+    
     const gambiarrinha = gambiarra(booksFiltered);
-
+      
     setBookFiltered(gambiarrinha);
 
   }, [search]);
@@ -68,7 +68,9 @@ export const Home = () => {
                   <button onClick={() => handleModal(<LoginForm />)} className="btnLogin">Entrar</button>
                 </div>
                 : <div>
-                  <StyledLink to={user.isStore ? "/dashboard" : "/userdash"}><img src={user.avatar ? user.avatar : profile} alt={user.name} /></StyledLink>
+                  <StyledLink to={user.isStore ? "/dashboard" : "/userdash"}>
+                    <img src={user.avatar ? user.avatar : profile} alt={user.name} />
+                  </StyledLink>
                   <button onClick={onSubmitFunctionLogout} className="btnLogout">Sair</button>
                 </div>
               }
@@ -88,25 +90,25 @@ export const Home = () => {
               </BookFilter>
               {bookFiltered.map(store => {
                 return (
-                <BookSection key={store[0].user.id}>
-                  <div>
-                    <img src={store[0].user.avatar} alt={store[0].user.avatar} />
-                  </div>
-                  <BooksList>
-                    {store.map(book => {
-                      return (
-                        <BookContent key={book.id} onClick={(() => handleModal(<Book book={book} />))} >
-                          <div >
-                            <img src={book.avatar} alt={book.title} />
-                          </div>
-                          <div>
-                            <h3>{book.title}</h3>
-                            <span>R$ {book.price}</span>
-                          </div>
-                        </BookContent>)
-                    })}
-                  </BooksList>
-                </BookSection>)
+                  <BookSection key={store[0].user.id}>
+                    <div>
+                      <img src={store[0].user.avatar} alt={store[0].user.avatar} />
+                    </div>
+                    <BooksList>
+                      {store.map(book => {
+                        return (
+                          <BookContent key={book.id} onClick={(() => handleModal(<Book book={book} />))} >
+                            <div >
+                              <img src={book.avatar} alt={book.title} />
+                            </div>
+                            <div>
+                              <h3>{book.title}</h3>
+                              <span>R$ {book.price}</span>
+                            </div>
+                          </BookContent>)
+                      })}
+                    </BooksList>
+                  </BookSection>)
               })}
             </>
           </Wrapper>

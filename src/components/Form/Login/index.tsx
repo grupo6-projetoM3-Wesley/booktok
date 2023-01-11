@@ -10,11 +10,11 @@ interface IFormValues {
 }
 
 export const LoginForm = () => {
-    const { onSubmitFunctionLogin, setForm } = useContext(UserContext);
+    const { userLogin, setForm } = useContext(UserContext);
     const { register, handleSubmit } = useForm<IFormValues>();
 
     return (
-        <Container onSubmit={handleSubmit(onSubmitFunctionLogin)}>
+        <Container onSubmit={handleSubmit(userLogin)}>
             <h1>Login</h1>
             <input type="email" placeholder="E-mail" {...register("email")} />
             <input type="password" placeholder="Senha" {...register("password")} />
