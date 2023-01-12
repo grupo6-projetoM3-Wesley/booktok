@@ -44,6 +44,28 @@
       "birthDay": "ASDASDAS",
       "isStore": true,
       "id": 4
+    },
+    {
+      "email": "wellington.eliteinfo@gmail.com",
+      "password": "$2a$10$wxKV81ibEOoWr.zxxKJjGOg7Vie0PTHgE5iNwc16ntKoxT11QyCUO",
+      "name": "Wellington de paula",
+      "address": "2999 Avenida Mutirão",
+      "phone": "+5562984190214",
+      "avatar": "https://i.pinimg.com/originals/27/87/5d/27875d70cf52a0a643aeda13bbb7b0cd.jpg",
+      "birthDay": "16/09/1987",
+      "isStore": false,
+      "id": 5
+    },
+    {
+      "email": "testebooktok@kenzie.com.br",
+      "password": "$2a$10$VNbt3hQ9tmC159shruRWWuDFNBPQLBaekHKqikes5xJpi1d/PFMR.",
+      "name": "Quadrinholandia",
+      "address": "rua a loja 1",
+      "phone": "625554855442",
+      "avatar": "https://images.universohq.com/2015/10/ComicShop.jpg",
+      "birthDay": "01/05/2000",
+      "isStore": true,
+      "id": 6
     }
   ],
   "books": [
@@ -530,6 +552,94 @@
       "state": "p´lfpfl",
       "stock": 1,
       "id": 22
+    },
+    {
+      "userId": 6,
+      "user": {
+        "email": "testebooktok@kenzie.com.br",
+        "name": "Quadrinholandia",
+        "address": "rua a loja 1",
+        "phone": "625554855442",
+        "avatar": "https://images.universohq.com/2015/10/ComicShop.jpg",
+        "birthDay": "01/05/2000",
+        "isStore": true,
+        "id": 6
+      },
+      "title": "Homem-Aranha: Aranhaverso",
+      "author": "Dan Slott",
+      "genre": "Quadrinhos",
+      "resume": "Quando os malévolos Herdeiros começam a exterminar super-humanos com poderes aracnídeos em todo o multiverso, cada Homem-Aranha é necessário para salvar o dia! Um exército de aranhas se reúne para lutar contra Morlun e sua família mortal, e o Homem-Aranha Superior pretende liderá-lo!...",
+      "avatar": "https://m.media-amazon.com/images/I/61KrGlGjHoL._SY344_BO1,204,203,200_QL70_ML2_.jpg",
+      "price": "79",
+      "state": "Novo",
+      "stock": 1,
+      "id": 23
+    },
+    {
+      "userId": 6,
+      "user": {
+        "email": "testebooktok@kenzie.com.br",
+        "name": "Quadrinholandia",
+        "address": "rua a loja 1",
+        "phone": "625554855442",
+        "avatar": "https://images.universohq.com/2015/10/ComicShop.jpg",
+        "birthDay": "01/05/2000",
+        "isStore": true,
+        "id": 6
+      },
+      "title": "Guerra Civil: Marvel Essenciais",
+      "author": " Kevin Smith",
+      "genre": "Quadrinhos",
+      "resume": "A ação precipitada de um grupo de jovens super-heróis acarreta uma tragédia sem precedentes, deixando um saldo de centenas de mortos. Diante da pressão popular, o governo sanciona uma lei determinando que todos os superseres sejam registrados. A iniciativa divide a comunidade heroica como nunca antes",
+      "avatar": "https://m.media-amazon.com/images/I/61ECajnAC2S._SX326_BO1,204,203,200_.jpg",
+      "price": "62",
+      "state": "Novo",
+      "stock": 1,
+      "id": 24
+    },
+    {
+      "userId": 6,
+      "user": {
+        "email": "testebooktok@kenzie.com.br",
+        "name": "Quadrinholandia",
+        "address": "rua a loja 1",
+        "phone": "625554855442",
+        "avatar": "https://images.universohq.com/2015/10/ComicShop.jpg",
+        "birthDay": "01/05/2000",
+        "isStore": true,
+        "id": 6
+      },
+      "title": "Guerra Secreta: Marvel Essenciais",
+      "author": "Brian Michael Bendis",
+      "genre": "Quadrinhos",
+      "resume": "O coronel Nick Fury, diretor da SHIELD, descobre que uma mente sinistra está financiando alguns dos supervilões mais perigosos do planeta. Decidido a combater a terrível e sombria ameaça, ele monta uma equipe de operações secretas composta por Homem-Aranha, Wolverine, Demolidor, Capitão America..",
+      "avatar": "https://m.media-amazon.com/images/I/618t0B7rx5L._SX597_BO1,204,203,200_.jpg",
+      "price": "65",
+      "state": "Novo",
+      "stock": 1,
+      "id": 25
+    },
+    {
+      "userId": 6,
+      "user": {
+        "email": "testebooktok@kenzie.com.br",
+        "name": "Quadrinholandia",
+        "address": "rua a loja 1",
+        "phone": "625554855442",
+        "avatar": "https://images.universohq.com/2015/10/ComicShop.jpg",
+        "birthDay": "01/05/2000",
+        "isStore": true,
+        "id": 6
+      },
+      "title": "Homem-Aranha: O Mal no Coração dos Homens",
+      "author": " Kevin Smith ",
+      "genre": "Quadrinhos",
+      "resume": "A vilã mais sedutora do Amigão da Vizinhança está de volta pra uma aventura espetacular! Investigando o desaparecimento de uma jovem, a Gata Negra retorna a Manhattan e encontra, claro, o Homem-Aranha.",
+      "avatar": "https://m.media-amazon.com/images/I/61ZXQtwsZ6L._SX594_BO1,204,203,200_.jpg",
+      "price": "72",
+      "state": "Novo",
+      "stock": 1,
+      "id": 26
     }
   ]
 }

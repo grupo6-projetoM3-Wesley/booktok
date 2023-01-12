@@ -11,6 +11,10 @@ export const Container = styled.form`
 
     padding: 40px 120px;
     gap: 30px;
+
+    @media (max-width:900px){
+        padding: 10px;
+    }
     
     & > h1 {
         color: #02C5B7;
@@ -27,6 +31,10 @@ export const Container = styled.form`
         border-radius: 15px;
         border: 1px solid #B48CF2;
 
+        @media (max-width:900px){
+            max-width: 350px;
+        }
+
         &::placeholder {
             color: #B48CF2;
         }
@@ -39,6 +47,10 @@ export const Container = styled.form`
         padding: 10px 15px;
         border-radius: 15px;
         color: #fff;
+
+        @media (max-width:900px){
+            max-width: 350px;
+        }
     }
 `
 
@@ -76,6 +88,8 @@ export const Switch = styled.div`
 
         transition: all 0.5s;
         scale: 1.2;
+
+       
     }
     
     .last{ 

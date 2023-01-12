@@ -90,6 +90,12 @@ export const StyledStorePage = styled.div<{ isOpen: boolean }>`
     border-radius: 160px;
     border: 3px solid white;
     z-index: 1;
+
+    @media (max-width:900px) {
+      max-width: 120px;
+      max-height: 120px;
+    }    
+
   }
 
   .list-section {
@@ -101,7 +107,13 @@ export const StyledStorePage = styled.div<{ isOpen: boolean }>`
     max-width: 1200px;
     width: 100%;
     padding: 100px 0;
-    margin: 0 auto; 
+    margin: 0 auto;
+    
+    @media (max-width:900px){
+      width:98%;
+      margin-top: 15px;
+      padding: 10px;
+    }
 
     input {
       width: 512px;
@@ -110,6 +122,11 @@ export const StyledStorePage = styled.div<{ isOpen: boolean }>`
       border: 1px solid #b48cf2;
       border-radius: 16px;
       padding: 9px 22px;
+
+      @media (max-width:900px){
+        max-width: 512px;
+        width: 100%;
+      }
     }
   }
 
@@ -123,6 +140,10 @@ export const StyledStorePage = styled.div<{ isOpen: boolean }>`
     width: 100%;
     align-items: flex-start;
     justify-content: center;
+
+      @media (max-width:900px) {
+        gap:0px;
+      }
   }
 
   .filter-div {
@@ -133,6 +154,13 @@ export const StyledStorePage = styled.div<{ isOpen: boolean }>`
     gap: 20px;
     height: 100%;
     width: 100%;
+
+    @media (max-width:900px){
+      justify-content: center;
+      height: 43px;
+    }
+
+    
 
   & > input {
     width: 100%;
@@ -161,6 +189,11 @@ export const StyledStorePage = styled.div<{ isOpen: boolean }>`
     justify-content: space-between;
     width: 100%;
 
+    @media (max-width:900px){
+      flex-direction: column-reverse;
+      gap: 10px;
+    }
+
     & > button {
       padding: 10px 20px;
     
@@ -186,6 +219,13 @@ export const StyledCard = styled.li`
   min-width: 150px;
   max-width: 510px;
   width: 100%;
+
+  @media (max-width:900px) {
+    max-width:510px;
+    min-width: 280px;
+    width: 98%;
+    
+  }
   
 
   img {
@@ -253,12 +293,18 @@ export const StyledUserSection = styled.section`
   display: flex;
   width: 100%;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   position: relative;
 
   gap: 50px;
 
   padding-top: 100px;
+
+  @media (max-width:900px){
+    padding-top: 20px;
+    gap: 10px;
+  }
 `
 
 export const StyledUserBg = styled.div`
@@ -267,58 +313,67 @@ width: 100%;
 height: 223px;
 top: 0;
 position: absolute;
+@media (max-width:900px){
+  max-height: 80px;
+}
 `
 
 export const StyledUserCard = styled.div`
-width: 480px;
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-background-color: var(--color-white);
-padding: 16px 24px;
-box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
-border-radius: 4px;
-gap: 20px;
-z-index: 1;
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--color-white);
+  padding: 16px 24px;
+  box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
+  border-radius: 4px;
+  gap: 20px;
+  z-index: 1;
   background-color: white;
+  
+  @media (max-width:900px){
+    max-width: 480px;
+    width: 96%;
+  }
 
   h2 {
-  align-self: center;
-  color: #4E2096;
-  font-size: 24px;
-  font-weight: 700;
-}
+    align-self: center;
+    color: #4E2096;
+    font-size: 24px;
+    font-weight: 700;
+  }
 `
 
 export const StyledCardUserInfo = styled.div`
-display: flex;
-flex-direction: column;
-width: 90%;
-padding: 0 10px;
-gap: 4px;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  padding: 0 10px;
+  gap: 4px;
 
   p {
-  font-size: 16px;
-  font-weight: 600;
-  color: #4E2096;
-}
+    font-size: 16px;
+    font-weight: 600;
+    color: #4E2096;
+  }
 
   span{
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--color-black);
-}
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-black);
+  }
 `
 
 
 export const StyledCardUserBtns = styled.div`
-    width: 90%;
+    width: 100%;
     display: flex;
+    gap: 3px;
     justify-content: space-around;
 
   & > button:first-child {
-    width: 181px;
-    height: 27px;
+    width: 149px;
+    height: 33px;
     background-color: var(--color-primary);
     border: 1px solid var(--color-primary);
     border-radius: 16px;

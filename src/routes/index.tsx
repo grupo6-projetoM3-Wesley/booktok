@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { Home } from '../pages/Home';
 import { StorePage } from '../pages/StorePage';
-import { UserPage } from '../pages/UserPage';
+import { UserPage } from '../pages/userPage';
 
 export const RoutesMain = () => {
   return (

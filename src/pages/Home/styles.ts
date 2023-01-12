@@ -75,6 +75,20 @@ overflow-x: scroll;
     &:active {
     transform: translateY(1px);
   }
+  @media (max-width:900px){
+    max-width: max-content;
+    min-width: min-content;
+    height: 50px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width:900px){
+ max-width : 600px;
+ width: 98%;
 }
 `
 
@@ -92,14 +106,25 @@ padding: 20px;
 border-radius: 15px;
 
 background-color: #EEEEEE;
+  
 
   & > div:first-child {
-  padding-top: 5px;
   height: 310px;
-  width: 200px;
+  width: 250px;
+  gap:5px ;
+  display: flex;
+  flex-direction: column;
+  
+    & p{
+      font-size: 20px;
+      font-weight: 700;
+      color:var(--color-primary); 
+      max-width: 20px;
+      
+    }
 
     & > img{
-    height: 100%;
+    height: 90%;
     width: 100%;
 
     object-fit: cover;
@@ -108,6 +133,9 @@ background-color: #EEEEEE;
   }
 }
 `
+
+
+
 
 export const BooksList = styled.ul`
 width: 100%;
