@@ -15,4 +15,9 @@ export const StyledHeaderContainer = styled.div`
     max-width: 1200px;
     align-items: center;
     padding: 20px;
+
+    @media (max-width:900px){
+        flex-direction: column;
+        gap: 1rem;
+    }
 `

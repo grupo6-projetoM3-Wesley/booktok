@@ -37,19 +37,35 @@ export const Wrapper = styled.div`
 
     background-color: #02c5b7;
 
-    padding: 20px;
+    padding: 12px;
 
     border-radius: 15px 15px 0px 0px;
   }
 
+  & > header>button{
+    width: 25px;
+    height: 25px;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    font-weight: 700;
+  }
+
   & > footer {
-    height: 20px;
+    min-height: 30px;
     width: 100%;
 
     background-color: #02c5b7;
 
     border-radius: 0px 0px 15px 15px;
   }
+
+  @media (max-width:900px){
+    max-width: 600px;
+    width: 95%;
+    max-height: 95%;
+  }
+
 `;
 
 export const Content = styled.div`

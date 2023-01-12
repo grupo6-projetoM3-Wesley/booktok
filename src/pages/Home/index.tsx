@@ -4,7 +4,7 @@ import profile from '../../assets/img/profile.jpg';
 import { Book } from '../../components/Form/Book';
 import { LoginForm } from '../../components/Form/Login';
 import { RegisterForm } from '../../components/Form/Register';
-import Header from '../../components/Header';
+import Header from '../../components/header';
 import { Modal } from '../../components/Modal';
 import { iBook, UserContext } from '../../contextAPI/UserContext';
 import {
@@ -153,11 +153,14 @@ export const Home = () => {
               {bookFiltered.map((store) => {
                 return (
                   <BookSection key={store[0].user.id}>
+                    
                     <div>
+                      <p>{store[0].user.name}</p>
                       <img
                         src={store[0].user.avatar}
                         alt={store[0].user.avatar}
                       />
+                      
                     </div>
                     <BooksList>
                       {store.map((book) => {

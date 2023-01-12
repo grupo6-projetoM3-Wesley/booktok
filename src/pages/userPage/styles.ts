@@ -15,12 +15,18 @@ export const StyledUserSection = styled.section`
   display: flex;
   width: 100%;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
   position: relative;
 
   gap: 50px;
 
   padding-top: 100px;
+
+  @media (max-width:900px){
+    padding-top: 20px;
+    gap: 10px;
+  }
 
 
   & > img {
@@ -31,6 +37,12 @@ export const StyledUserSection = styled.section`
     border: 5px solid white;
     object-fit: cover;
     z-index: 1;
+
+    @media (max-width:900px) {
+      max-width: 120px;
+      max-height: 120px;
+    }    
+
   }
 `;
 
@@ -40,6 +52,10 @@ width: 100%;
 height: 223px;
 top: 0;
 position: absolute;
+
+@media (max-width:900px){
+  max-height: 80px;
+}
 `
 
 export const StyledUserCard = styled.div`
@@ -53,14 +69,19 @@ box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
 border-radius: 4px;
 gap: 20px;
 z-index: 1;
-  background-color: white;
+background-color: white;
+
+@media (max-width:900px){
+  max-width: 480px;
+  width: 96%;
+}
 
   h2 {
-  align-self: center;
-  color: #4E2096;
-  font-size: 24px;
-  font-weight: 700;
-}
+    align-self: center;
+    color: #4E2096;
+    font-size: 24px;
+    font-weight: 700;
+  }
 `
 
 export const StyledCardUserInfo = styled.div`
@@ -83,13 +104,14 @@ export const StyledCardUserInfo = styled.div`
 `;
 
 export const StyledCardUserBtns = styled.div`
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-around;
+  gap: 3px;
 
   & > button:first-child {
-    width: 181px;
-    height: 27px;
+    width: 149px;
+    height: 33px;
     background-color: var(--color-primary);
     border: 1px solid var(--color-primary);
     border-radius: 16px;
@@ -107,6 +129,7 @@ export const StyledCardUserBtns = styled.div`
     border-radius: 16px;
     font-weight: 600;
   }
+
 `;
 
 export const StyledLink = styled(Link)`
@@ -131,6 +154,11 @@ export const StyledListSection = styled.section`
   align-items: center;
   background-color: var(--color-grey1);
   padding: 100px 0;
+  
+  @media (max-width:900px){
+    padding: 0;
+    margin-top: 20px;
+  }
 `;
 
 export const StyledListSectionTitle = styled.div`
@@ -142,6 +170,11 @@ export const StyledListSectionTitle = styled.div`
   background-color: var(--color-primary);
   border: 1px solid var(--color-primary);
   border-radius: 8px;
+
+  @media (max-width:900px){
+    max-width: 600px;
+    width: 100%;
+  }
   h2 {
     font-size: 20px;
     font-weight: 800;
@@ -156,6 +189,13 @@ export const StyledFavoritList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  @media (max-width:900px){
+    max-width: 98%;
+    width: 98%;
+  }
+
+
 `;
 
 export const StyledBookCard = styled.li`
@@ -167,6 +207,11 @@ export const StyledBookCard = styled.li`
   box-shadow: 0px 0px 5px rgba(78, 32, 150, 0.25);
   border-radius: 4px;
   flex-wrap: wrap;
+
+  @media (max-width:900px){
+    max-width: 482px;
+    width: 100%;
+  }
   img {
     width: 150px;
     height: 200px;
