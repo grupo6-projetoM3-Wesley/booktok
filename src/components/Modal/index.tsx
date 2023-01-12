@@ -8,6 +8,7 @@ export const Modal = ({ children }: { children: React.ReactNode }) => {
   function closeModal() {
     setForm(null);
     setOpen(false);
+    window.speechSynthesis.cancel();
   }
 
   return (
