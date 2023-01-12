@@ -104,8 +104,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   useEffect(() => {
     (async () => {
       await getAllBooks();
+      console.log('useffect');
     })();
-  }, [user]);
+  }, [isOpen]);
 
   const getAllBooks = async () => {
     const { data } = await api.get<iBook[]>('books');
