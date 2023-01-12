@@ -101,3 +101,5 @@ https://www.linkedin.com/in/rhuan-kisiolar/
 https://www.linkedin.com/in/Wellington-DePaula
 
 ####Gabriel Andrade
+
+https://www.linkedin.com/in/gabriel-vargas-de-andrade
