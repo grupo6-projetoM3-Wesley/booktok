@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import profile from "../../assets/img/profile.jpg";
+import { ToastContainer } from 'react-toastify';
+import profile from '../../assets/img/profile.jpg';
 import { CreateBook } from '../../components/Form/CreateBook';
 import { DeleteUser } from '../../components/Form/DeleteUser';
 import { UpdateBook } from '../../components/Form/UpdateBook';
@@ -7,22 +8,42 @@ import { UpdateUser } from '../../components/Form/UpdateUser';
 import Header from '../../components/Header';
 import { Modal } from '../../components/Modal';
 import { UserContext } from '../../contextAPI/UserContext';
-import { StyledCard, StyledCardUserBtns, StyledCardUserInfo, StyledHeaderNav, StyledLink, StyledStorePage, StyledUserBg, StyledUserCard, StyledUserSection } from './styles';
-
+import {
+  StyledCard,
+  StyledCardUserBtns,
+  StyledCardUserInfo,
+  StyledHeaderNav,
+  StyledLink,
+  StyledStorePage,
+  StyledUserBg,
+  StyledUserCard,
+  StyledUserSection,
+} from './styles';
 
 export const StorePage = () => {
-  const { user, onSubmitFunctionLogout, setForm, setOpen, isOpen, form, bookStore, setbookStoreFiltered, bookStoreFiltered } = useContext(UserContext)
+  const {
+    user,
+    onSubmitFunctionLogout,
+    setForm,
+    setOpen,
+    isOpen,
+    form,
+    bookStore,
+    setbookStoreFiltered,
+    bookStoreFiltered,
+  } = useContext(UserContext);
   // const [bookStore, setBookStore] = useState<iBook[] | null>(null)
   // const [bookStoreFiltered, setbookStoreFiltered] = useState<iBook[] | null>(null)
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    const booksFiltered = bookStore?.filter(item => item.title.toLowerCase().startsWith(search.toLowerCase()));
+    const booksFiltered = bookStore?.filter((item) =>
+      item.title.toLowerCase().startsWith(search.toLowerCase())
+    );
 
     if (booksFiltered) {
       setbookStoreFiltered(booksFiltered);
     }
-
   }, [search]);
 
   function handleModal(form: React.ReactNode) {
@@ -34,9 +55,10 @@ export const StorePage = () => {
     <>
       {isOpen && <Modal>{form}</Modal>}
       <StyledStorePage isOpen={isOpen}>
+        <ToastContainer />
         <Header>
           <StyledHeaderNav>
-            <StyledLink to="/" >Home</StyledLink>
+            <StyledLink to='/'>Home</StyledLink>
             <button onClick={onSubmitFunctionLogout}>Sair</button>
           </StyledHeaderNav>
         </Header>
@@ -46,26 +68,39 @@ export const StorePage = () => {
           <StyledUserCard>
             <h2>Dados da Loja</h2>
             <StyledCardUserInfo>
-              <p>Nome<span> {user?.name}</span></p>
-              <p>Email<span> {user?.email}</span></p>
-              <p>Endereço<span> {user?.address} </span></p>
-              <p>Quantidade<span> {bookStore?.length}</span></p>
+              <p>
+                Nome<span> {user?.name}</span>
+              </p>
+              <p>
+                Email<span> {user?.email}</span>
+              </p>
+              <p>
+                Endereço<span> {user?.address} </span>
+              </p>
+              <p>
+                Quantidade<span> {bookStore?.length}</span>
+              </p>
             </StyledCardUserInfo>
             <StyledCardUserBtns>
-              <button onClick={() => handleModal(<UpdateUser />)}>Atualizar</button>
-              <button onClick={() => handleModal(<DeleteUser />)}>Deletar</button>
+              <button onClick={() => handleModal(<UpdateUser />)}>
+                Atualizar
+              </button>
+              <button onClick={() => handleModal(<DeleteUser />)}>
+                Deletar
+              </button>
             </StyledCardUserBtns>
           </StyledUserCard>
         </StyledUserSection>
         <section className='list-section'>
           <div className='new-book'>
-            <button onClick={() => handleModal(<CreateBook />)}>Cadastrar novo livro</button>
+            <button onClick={() => handleModal(<CreateBook />)}>
+              Cadastrar novo livro
+            </button>
             <div className='filter-div'>
               <input
                 placeholder='Pesquisar livro'
                 onChange={(event) => setSearch(event.target.value)}
-              >
-              </input>
+              ></input>
             </div>
           </div>
           <ul>
@@ -86,14 +121,18 @@ export const StorePage = () => {
                     <p>
                       Estado do livro: <span>{book.state}</span>
                     </p>
-                    <button onClick={() => handleModal(<UpdateBook {...book} />)}>Atualizar</button>
+                    <button
+                      onClick={() => handleModal(<UpdateBook {...book} />)}
+                    >
+                      Atualizar
+                    </button>
                   </div>
                 </StyledCard>
               );
-            }
-            )}
+            })}
           </ul>
         </section>
       </StyledStorePage>
-    </>)
+    </>
+  );
 };

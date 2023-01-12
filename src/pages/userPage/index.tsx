@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { ToastContainer } from 'react-toastify';
 import profile from '../../assets/img/profile.jpg';
 import { DeleteUser } from '../../components/Form/DeleteUser';
 import { UpdateUser } from '../../components/Form/UpdateUser';
@@ -18,7 +19,7 @@ import {
   StyledUserBg,
   StyledUserCard,
   StyledUserPage,
-  StyledUserSection
+  StyledUserSection,
 } from './styles';
 
 export const UserPage = () => {
@@ -64,6 +65,7 @@ export const UserPage = () => {
     <>
       {isOpen && <Modal>{form}</Modal>}
       <StyledUserPage isOpen={isOpen}>
+        <ToastContainer />
         <Header>
           <StyledHeaderNav>
             <StyledLink to='/'>Home</StyledLink>
