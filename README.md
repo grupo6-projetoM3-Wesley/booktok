@@ -1,46 +1,103 @@
-# Getting Started with Create React App
+# Book-tok
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Sobre o projeto
 
-## Available Scripts
+https://linkdodeploy
 
-In the project directory, you can run:
+O Book-tok é uma aplicação full stack web e responsiva construída durante a finalização de modulo m3 da **kenzie Academy Brasil**
+(https://kenzie.com.br/ "Site da kenzie").
 
-### `yarn start`
+Uma aplicação web que permite que os usuários encontre sebos com livros usados é um fator para o crescimento do mercado de segunda mão, os usados; com valores que podem chegar até 70% de desconto quando comparados as livros novos, de alguma forma escritores e leitores precisam ser conectados, então aparentemente o caminho para esse setor passa por tecnologia, inovação e muita criatividade.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Nesce então a book-tok, somos um marketplace dedicado a livros usados e tornamos a vida dos leitores mais fácil e prática. Para me comunicar com os meus leitores, uso uma linguagem direta, clara e objetiva, bem característica de uma amiga que indica livros e compartilha histórias. Com bom humor, trago leveza, irreverência e diversidade, assim como boas obras literárias.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Layout web
 
-### `yarn test`
+![Web 1](https://github.com/Wagneravel/assets-booktok/raw/main/assets/Frame 1.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![Web 2](https://github.com/Wagneravel/assets-booktok/raw/main/assets/Frame 2.png)
 
-### `yarn build`
+![Web 3](https://github.com/Wagneravel/assets-booktok/raw/main/assets/Frame 3.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![Web 4](https://github.com/Wagneravel/assets-booktok/raw/main/assets/Frame 4.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Web 5](https://github.com/Wagneravel/assets-booktok/raw/main/assets/Frame 6.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Web 6](https://github.com/Wagneravel/assets-booktok/raw/main/assets/Frame 7.png)
 
-### `yarn eject`
+# Tecnologias utilizadas
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Back end
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- JSON-server
+- node-js
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Front end
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- HTML / CSS / TypeScript
+- ReactJS
 
-## Learn More
+## Implantação em produção
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Back end: API local
+- Front end web: vercel
+- Banco de dados: JSON-server
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Como executar o projeto
+
+## Back end
+
+Pré-requisitos: Java 11
+
+```bash
+# clonar repositório
+git clone git@github.com:grupo6-projetoM3-Wesley/booktok.git
+
+# entrar na pasta do projeto back end
+cd backend
+
+# executar o projeto
+node server.ts
+```
+
+## Front end web
+
+Pré-requisitos: npm / yarn
+
+```bash
+# clonar repositório
+git clone git@github.com:grupo6-projetoM3-Wesley/booktok.git
+
+# entrar na pasta do projeto front end web
+cd booktok
+
+# instalar dependências
+yarn install
+
+# executar o projeto
+yarn start
+```
+
+# Autor
+
+####Fernando Guerino
+
+https://www.linkedin.com/in/fernando-guerino-3a89b723b/
+
+####Leonardo Carlos
+
+https://www.linkedin.com/in/leonardocsdias/
+
+####Wagner avelino
+
+https://www.linkedin.com/in/wagneravelino/
+
+#####Rhuan Kisiolar Bartelt Ferreira
+
+https://www.linkedin.com/in/rhuan-kisiolar/
+
+####Wellington Eugenio de Paula
+
+https://www.linkedin.com/in/Wellington-DePaula
+
+####Gabriel Andrade
