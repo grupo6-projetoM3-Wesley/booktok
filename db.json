@@ -21,6 +21,17 @@
       "birthDay": "01/05/2000",
       "isStore": true,
       "id": 6
+    },
+    {
+      "email": "rhuankb@outlook.com",
+      "password": "$2a$10$/tAcpqmVTsq7fTb5F5PYpOEGAlJxKRN0cBs2nuPCXEd3ZCduWRUeS",
+      "name": "RHUAN KISIOLAR BARTELT FERREIRA",
+      "address": "Rua Engenheiro Fernando Mendes Ribeiro",
+      "phone": "51994041001",
+      "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvepXD3aHXerBnqjI4Zv6C7JPgHQHzdruSeVLv7HQy&s",
+      "birthDay": "12/06/1997",
+      "isStore": false,
+      "id": 7
     }
   ],
   "books": [
