@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
+import { toast } from 'react-toastify';
 
 interface iUserProviderProps {
   children: React.ReactNode;
@@ -96,13 +97,13 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [isOpen, setOpen] = useState(false);
   const [form, setForm] = useState<React.ReactNode | null>(null);
   const [bookFiltered, setBookFiltered] = useState<iBook[][]>([]);
-  const [bookStore, setBookStore] = useState<iBook[]>([])
-  const [bookStoreFiltered, setbookStoreFiltered] = useState<iBook[]>([])
+  const [bookStore, setBookStore] = useState<iBook[]>([]);
+  const [bookStoreFiltered, setbookStoreFiltered] = useState<iBook[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
-      await getAllBooks()
+      await getAllBooks();
     })();
   }, [user]);
 
@@ -126,41 +127,50 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       .map((item) => item[1]);
 
     if (user) {
-      const storeBooksFiltered = books.filter(book => book.user.id === user?.id);
+      const storeBooksFiltered = books.filter(
+        (book) => book.user.id === user?.id
+      );
       setBookStore(storeBooksFiltered);
       setbookStoreFiltered(storeBooksFiltered);
     }
 
     setStores(getStoreInGroup);
     setBookFiltered(getStoreInGroup);
-  }
+  };
 
   const userLogin = async (data: iDataLogin) => {
     try {
       const response = await api.post('/login', data);
 
       setUser(response.data.user);
+      toast.success('Login feito com sucesso, redirecionando...', {
+        autoClose: 1000,
+      });
 
       localStorage.setItem('tokenUser', response.data.accessToken);
       setOpen(false);
     } catch (error) {
-      console.log('Usuário e/ou senha inválido(s)');
+      toast.error('E-mail ou senha incorretos', {
+        autoClose: 1000,
+      });
     }
   };
 
   const createUser = async (data: iDataRegisterUser) => {
-    delete data.passwordConfirm
+    delete data.passwordConfirm;
 
     try {
       await api.post('users', data);
-      console.log('Usuário cadastrado com sucesso');
+      toast.success('Cadastro feito com sucesso, redirecionando...', {
+        autoClose: 1000,
+      });
 
       setForm(null);
       setOpen(false);
     } catch (error) {
-
-      console.log('Não foi possível cadastrar esse usuário');
-
+      toast.error('Não foi possível cadastrar esse usuário', {
+        autoClose: 1000,
+      });
     }
   };
 
@@ -172,10 +182,14 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
           Authorization: 'Bearer ' + token,
         },
       });
-
+      toast.success('Usuário atualizado, redirecionando...', {
+        autoClose: 1000,
+      });
       setUser(response.data.user);
     } catch (error) {
-      console.log(error);
+      toast.error('Não foi possível atualizar esse usuário', {
+        autoClose: 1000,
+      });
     } finally {
       setForm(null);
       setOpen(false);
@@ -190,7 +204,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
           Authorization: 'Bearer ' + token,
         },
       });
-
+      toast.success('Usuário deletado, redirecionando...', {
+        autoClose: 1000,
+      });
       setUser(null);
       setForm(null);
       setOpen(false);
@@ -198,12 +214,17 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
       navigate('/');
     } catch (error) {
-      console.log(error);
+      toast.error('Não foi possível deletar esse usuário', {
+        autoClose: 1000,
+      });
     }
   };
 
   const onSubmitFunctionLogout = () => {
     localStorage.clear();
+    toast.success('Usuário deslogado, redirecionando...', {
+      autoClose: 1000,
+    });
     setUser(null);
     navigate('/');
   };

@@ -2119,11 +2119,6 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-speech-recognition@^3.9.0":
-  version "3.9.0"
-  resolved "https://registry.yarnpkg.com/@types/react-speech-recognition/-/react-speech-recognition-3.9.0.tgz#645e5de99c0837cc928b607979cc6c66a01e64c3"
-  integrity sha512-GstxYfAs4kFPPTQ3p2RU2NmRni5CnxUCHPioq4UytitootYa7iA4aEvXEXHH7S330kMcBY1MuhJ6CV696++0PQ==
-
 "@types/react@*", "@types/react@^18.0.0":
   version "18.0.26"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.26.tgz#8ad59fc01fef8eaf5c74f4ea392621749f0b7917"
@@ -8096,11 +8091,6 @@ react-scripts@^5.0.1:
     workbox-webpack-plugin "^6.4.1"
   optionalDependencies:
     fsevents "^2.3.2"
-
-react-speech-kit@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/react-speech-kit/-/react-speech-kit-3.0.1.tgz#8bd936adfe064be1c5a07e2992dfdfd772e80d14"
-  integrity sha512-MXNOciISanhmnxpHJkBOev3M3NPDpW1T7nTc/eGw5pO9cXpoUccRxZkmr/IlpTPbPEneDNeTmbwri/YweyctZg==
 
 react-toastify@^9.1.1:
   version "9.1.1"
