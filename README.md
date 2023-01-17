@@ -2,7 +2,7 @@
 
 # Sobre o projeto
 
-https://linkdodeploy
+https://booktok.vercel.app/
 
 O Book-tok é uma aplicação full stack web e responsiva construída durante a finalização de modulo m3 da **kenzie Academy Brasil**
 (https://kenzie.com.br/ "Site da kenzie").
@@ -47,14 +47,9 @@ Nesce então a book-tok, somos um marketplace dedicado a livros usados e tornamo
 
 ## Back end
 
-Pré-requisitos: Java 11
-
 ```bash
 # clonar repositório
 git clone git@github.com:grupo6-projetoM3-Wesley/booktok.git
-
-# entrar na pasta do projeto back end
-cd backend
 
 # executar o projeto
 node server.ts
@@ -83,21 +78,27 @@ yarn start
 ####Fernando Guerino
 
 https://www.linkedin.com/in/fernando-guerino-3a89b723b/
+https://github.com/ferGuerino
 
 ####Leonardo Carlos
 
 https://www.linkedin.com/in/leonardocsdias/
+https://github.com/leocarlos-dias
 
 ####Wagner avelino
 
 https://www.linkedin.com/in/wagneravelino/
+https://github.com/Wagneravel
 
 #####Rhuan Kisiolar Bartelt Ferreira
 
 https://www.linkedin.com/in/rhuan-kisiolar/
+https://github.com/Rhuankb
 
 ####Wellington Eugenio de Paula
 
 https://www.linkedin.com/in/Wellington-DePaula
+https://github.com/wellinton-eugenio
 
 ####Gabriel Andrade
+https://github.com/imgabrie1

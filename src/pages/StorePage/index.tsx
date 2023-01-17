@@ -31,6 +31,9 @@ export const StorePage = () => {
     bookStore,
     setbookStoreFiltered,
     bookStoreFiltered,
+    att,
+    setAtt,
+    getAllBooks,
   } = useContext(UserContext);
   // const [bookStore, setBookStore] = useState<iBook[] | null>(null)
   // const [bookStoreFiltered, setbookStoreFiltered] = useState<iBook[] | null>(null)
@@ -40,7 +43,6 @@ export const StorePage = () => {
     const booksFiltered = bookStore?.filter((item) =>
       item.title.toLowerCase().startsWith(search.toLowerCase())
     );
-
     if (booksFiltered) {
       setbookStoreFiltered(booksFiltered);
     }
@@ -49,6 +51,7 @@ export const StorePage = () => {
   function handleModal(form: React.ReactNode) {
     setForm(form);
     setOpen(true);
+    setAtt(!att);
   }
 
   return (

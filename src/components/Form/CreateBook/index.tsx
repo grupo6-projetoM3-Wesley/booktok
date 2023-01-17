@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../../contextAPI/UserContext';
 import { api } from '../../../services/api';
@@ -25,8 +26,20 @@ export const CreateBook = () => {
     setOpen,
     setbookStoreFiltered,
     bookStoreFiltered,
+    isOpen,
+    att,
+    setAtt,
+    closeModal,
   } = useContext(UserContext);
   const { register, handleSubmit } = useForm<iFormValues>();
+
+  const navigate = useNavigate();
+
+  function handleModal(form: React.ReactNode) {
+    setForm(form);
+    setOpen(true);
+    setAtt(!att);
+  }
 
   async function createBook(formValue: iFormValues) {
     const currentBook = books
@@ -54,6 +67,7 @@ export const CreateBook = () => {
         toast.success('Livro criado com sucesso!', {
           autoClose: 1000,
         });
+        setAtt(!att);
       } else {
         await api.post('books/', newBook, {
           headers: {
@@ -64,6 +78,7 @@ export const CreateBook = () => {
           autoClose: 1000,
         });
       }
+      setAtt(!att);
     } catch (error) {
       toast.error('Algo deu errado!', {
         autoClose: 1000,
@@ -72,8 +87,9 @@ export const CreateBook = () => {
       if (user) {
         setbookStoreFiltered([...bookStoreFiltered, { ...newBook, user }]);
       }
-      setForm(null);
-      setOpen(false);
+      setTimeout(() => {
+        handleModal(<CreateBook />);
+      }, 2000);
     }
   }
 

@@ -3,13 +3,7 @@ import { UserContext } from '../../contextAPI/UserContext';
 import { Container, Content, Wrapper } from './styles';
 
 export const Modal = ({ children }: { children: React.ReactNode }) => {
-  const { setForm, setOpen } = useContext(UserContext);
-
-  function closeModal() {
-    setForm(null);
-    setOpen(false);
-    window.speechSynthesis.cancel();
-  }
+  const { setForm, setOpen, att, setAtt, closeModal } = useContext(UserContext);
 
   return (
     <Container>

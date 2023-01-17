@@ -2,15 +2,19 @@ import { useContext } from 'react';
 import { UserContext } from '../../../contextAPI/UserContext';
 import { iBook } from '../../../contextAPI/UserContext';
 import { Container } from './styles';
+import play from '../../../assets/img/play.svg';
+import pause from '../../../assets/img/pause.svg';
+import fav from '../../../assets/img/fav.svg';
 
 interface iBookProps {
   book: iBook;
 }
 
 export const Book = ({ book }: iBookProps) => {
-  const { user, setUser } = useContext(UserContext);
-  const { title, resume } = book;
+  const { user, setUser, books } = useContext(UserContext);
+  const { title, resume, avatar, id } = book;
   const utterance = new SpeechSynthesisUtterance();
+  const userFind = books.find((item) => item.id === id);
 
   utterance.text = resume;
 
@@ -34,30 +38,35 @@ export const Book = ({ book }: iBookProps) => {
   }
 
   function readToMe() {
-    if (!window.speechSynthesis.paused) {
-      window.speechSynthesis.speak(utterance);
-    }
-    window.speechSynthesis.resume();
+    window.speechSynthesis.speak(utterance);
   }
 
   function stopReading() {
-    window.speechSynthesis.pause();
+    window.speechSynthesis.cancel();
   }
 
   return (
     <Container>
       <h1>{title}</h1>
-      <button type='button' onClick={handleFavorite}>
-        Favoritar
-      </button>
-      <button type='button' onClick={() => readToMe()}>
-        Ler
-      </button>
-      <button type='button' onClick={() => stopReading()}>
-        Parar
-      </button>
-      <p>{resume}</p>
-      <button>Comprar</button>
+      <div>
+        <img src={avatar} alt='' />
+        <p>{resume.substring(0, 500)}...</p>
+      </div>
+      <div className='buttons-div'>
+        <button type='button' onClick={handleFavorite}>
+          <img src={fav} alt='' />
+          Favoritar
+        </button>
+        <button type='button' onClick={() => readToMe()}>
+          <img src={play} alt='' />
+          Leitura
+        </button>
+        <button type='button' onClick={() => stopReading()}>
+          <img src={pause} alt='' />
+          Parar
+        </button>
+      </div>
+      <p>Endereço: {userFind?.user.address}</p>
     </Container>
   );
 };

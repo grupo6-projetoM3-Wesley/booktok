@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 import { toast } from 'react-toastify';
+import { LoginForm } from '../components/Form/Login';
+import { boolean } from 'yup';
 
 interface iUserProviderProps {
   children: React.ReactNode;
@@ -84,8 +86,11 @@ interface iUserContextTypes {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   form: React.ReactNode | null;
   setForm: React.Dispatch<React.SetStateAction<React.ReactNode | null>>;
+  att: boolean;
+  setAtt: React.Dispatch<React.SetStateAction<boolean>>;
 
   getAllBooks: () => Promise<void>;
+  closeModal: () => void;
 }
 
 export const UserContext = createContext({} as iUserContextTypes);
@@ -99,14 +104,22 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [bookFiltered, setBookFiltered] = useState<iBook[][]>([]);
   const [bookStore, setBookStore] = useState<iBook[]>([]);
   const [bookStoreFiltered, setbookStoreFiltered] = useState<iBook[]>([]);
+  const [att, setAtt] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
       await getAllBooks();
-      console.log('useffect');
+      console.log('home');
     })();
-  }, [isOpen]);
+  }, [att]);
+
+  function closeModal() {
+    setForm(null);
+    setOpen(false);
+    window.speechSynthesis.cancel();
+    setAtt(!att);
+  }
 
   const getAllBooks = async () => {
     const { data } = await api.get<iBook[]>('books');
@@ -159,15 +172,15 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
   const createUser = async (data: iDataRegisterUser) => {
     delete data.passwordConfirm;
+    const favorite: iBook[] = [];
 
     try {
-      await api.post('users', data);
+      await api.post('users', { ...data, favorite });
       toast.success('Cadastro feito com sucesso, redirecionando...', {
         autoClose: 1000,
       });
 
-      setForm(null);
-      setOpen(false);
+      setForm(<LoginForm />);
     } catch (error) {
       toast.error('Não foi possível cadastrar esse usuário', {
         autoClose: 1000,
@@ -253,6 +266,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         updateUser,
         deleteUser,
         getAllBooks,
+        att,
+        setAtt,
+        closeModal,
       }}
     >
       {children}

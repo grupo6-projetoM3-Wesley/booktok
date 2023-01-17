@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { UserContext } from '../../../contextAPI/UserContext';
 import { api } from '../../../services/api';
@@ -35,12 +36,14 @@ export const UpdateBook = ({
     bookStoreFiltered,
     setbookStoreFiltered,
     getAllBooks,
+    closeModal,
+    setAtt,
+    att,
   } = useContext(UserContext);
   const { register, handleSubmit } = useForm<IFormValues>();
+  const navigate = useNavigate();
 
   async function updateBook(formValue: IFormValues) {
-    // const book = books.filter(item => item.user.id === user?.id).find(item => item.id === id);
-
     try {
       const token = localStorage.getItem('tokenUser');
 
@@ -71,9 +74,8 @@ export const UpdateBook = ({
         });
         setbookStoreFiltered(newBooks);
       }
-      await getAllBooks();
-      setForm(null);
-      setOpen(false);
+      closeModal();
+      setAtt(!att);
     }
   }
 
